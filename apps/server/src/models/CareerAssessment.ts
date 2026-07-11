@@ -1,4 +1,4 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from 'mongoose';
 
 export interface ICareerAssessment extends Document {
   title: string;
@@ -13,7 +13,7 @@ const CareerAssessmentSchema = new Schema<ICareerAssessment>({
     trim: true,
   },
   questions: {
-    type: Array,
+    type: [Schema.Types.Mixed] as any,
     required: true,
     default: [],
   },
@@ -24,6 +24,6 @@ const CareerAssessmentSchema = new Schema<ICareerAssessment>({
 });
 
 export default model<ICareerAssessment>(
-  "CareerAssessment",
+  'CareerAssessment',
   CareerAssessmentSchema
 );
