@@ -8,9 +8,9 @@ export interface ICareerAssessment extends Document {
 
 const CareerAssessmentSchema = new Schema<ICareerAssessment>({
   title: {
-    type: String,
+    type: String,  
     required: true,
-    trim: true,
+    trim: true, 
   },
   questions: {
     type: [Schema.Types.Mixed] as any,
