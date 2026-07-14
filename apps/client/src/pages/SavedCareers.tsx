@@ -9,7 +9,10 @@ function SavedCareers() {
     <div className="min-h-screen bg-[var(--bg)]">
       <div className="max-w-5xl mx-auto px-4 py-8">
         <SavedCareersPage
-          entries={savedCareers}
+          careers={savedCareers.map(record => ({
+            ...record.career,
+            createdAt: record.savedAt
+          }))}
           loading={loading}
           error={error}
           onRemove={remove}
