@@ -4,7 +4,7 @@
 <!-- 📌 Replace this with your actual banner image once designed -->
 <!-- <img src="./docs/assets/banner.png" alt="Career Counselling System Banner" width="100%" /> -->
 
-# 🎯 Career Counselling System
+# 🎯 Skill Hive Digital
 
 ### AI-Assisted Career Discovery for Students & Job Seekers
 
