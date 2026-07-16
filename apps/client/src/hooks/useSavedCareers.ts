@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  fetchDashboardSavedCareers,
   fetchSavedCareers,
   removeSavedCareer,
   saveCareer,
@@ -13,15 +12,13 @@ import type {
 
 export function useSavedCareers() {
   const [savedCareers, setSavedCareers] = useState<SavedCareerRecord[]>([]);
-  const [dashboard, setDashboard] =
-    useState<DashboardSavedCareersSummary | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const token =
     typeof window !== "undefined"
-      ? localStorage.getItem("career-token")
+      ? localStorage.getItem("token")
       : null;
 
   const refresh = useCallback(async () => {
@@ -29,13 +26,8 @@ export function useSavedCareers() {
     setError(null);
 
     try {
-      const [saved, summary] = await Promise.all([
-        fetchSavedCareers(),
-        fetchDashboardSavedCareers(),
-      ]);
-
+      const saved = await fetchSavedCareers();
       setSavedCareers(saved);
-      setDashboard(summary);
     } catch (err) {
       setError(
         err instanceof Error
@@ -50,7 +42,6 @@ export function useSavedCareers() {
   useEffect(() => {
     if (!token) {
       setSavedCareers([]);
-      setDashboard(null);
       setLoading(false);
       return;
     }
@@ -67,11 +58,11 @@ export function useSavedCareers() {
   const toggleSave = useCallback(
     async (career: Career) => {
       try {
-        if (isSaved(career.id)) {
-          await removeSavedCareer(career.id);
+        if (isSaved(career._id)) {
+          await removeSavedCareer(career._id);
           setStatusMessage(`${career.title} removed from saved careers`);
         } else {
-          await saveCareer(career.id);
+          await saveCareer(career._id);
           setStatusMessage(`${career.title} saved to your list`);
         }
 
@@ -107,6 +98,14 @@ export function useSavedCareers() {
   const recent = useMemo(
     () => savedCareers.slice(0, 3),
     [savedCareers]
+  );
+
+  const dashboard: DashboardSavedCareersSummary | null = useMemo(
+    () =>
+      savedCareers.length
+        ? { recent, count: savedCareers.length }
+        : { recent: [], count: 0 },
+    [recent, savedCareers.length]
   );
 
   return {

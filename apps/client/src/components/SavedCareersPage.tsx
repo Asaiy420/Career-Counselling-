@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
-import type { Career } from '../types'
+import type { Career, SavedCareerRecord } from '../types'
 import { SaveCareerButton } from './SaveCareerButton'
 
 type SavedCareersPageProps = {
-  careers: Array<Career & { createdAt?: string }>
+  entries: SavedCareerRecord[]
   loading: boolean
   error: string | null
   onRemove: (careerId: string) => void | Promise<void>
@@ -11,7 +11,7 @@ type SavedCareersPageProps = {
   isSaved: (careerId: string) => boolean
 }
 
-export function SavedCareersPage({ careers, loading, error, onRemove, onToggleSave, isSaved }: SavedCareersPageProps) {
+export function SavedCareersPage({ entries, loading, error, onRemove, onToggleSave, isSaved }: SavedCareersPageProps) {
   if (loading) {
     return (
       <section className="space-y-4">
@@ -33,12 +33,12 @@ export function SavedCareersPage({ careers, loading, error, onRemove, onToggleSa
     return <div className="rounded-2xl border border-rose-200 bg-rose-50 p-6 text-rose-700">{error}</div>
   }
 
-  if (!careers.length) {
+  if (!entries.length) {
     return (
       <section className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
         <h2 className="mb-3 text-2xl font-semibold text-slate-900">No saved careers yet</h2>
         <p className="mb-6 text-slate-600">Bookmark careers you like and they’ll appear here for quick access later.</p>
-        <Link to="/" className="inline-flex rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700">
+        <Link to="/careers" className="inline-flex rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-slate-700">
           Browse careers
         </Link>
       </section>
@@ -55,34 +55,33 @@ export function SavedCareersPage({ careers, loading, error, onRemove, onToggleSa
       </div>
 
       <div className="grid gap-5 md:grid-cols-2">
-        {careers.map((career) => (
-          <article key={career.id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-            {career.image ? <img src={career.image} alt="" className="h-40 w-full object-cover" /> : null}
+        {entries.map(({ career, savedAt }) => (
+          <article key={career._id} className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div className="p-5">
               <div className="mb-3 flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm font-medium uppercase tracking-[0.2em] text-slate-500">{career.category}</p>
                   <h3 className="text-xl font-semibold text-slate-900">{career.title}</h3>
                 </div>
-                <SaveCareerButton career={career} isSaved={isSaved(career.id)} onToggle={onToggleSave} />
+                <SaveCareerButton career={career} isSaved={isSaved(career._id)} onToggle={onToggleSave} />
               </div>
               <p className="mb-4 text-sm leading-6 text-slate-600">{career.description}</p>
               <div className="mb-4 flex flex-wrap gap-2">
-                {career.skills.map((skill) => (
+                {career.requiredSkills.map((skill) => (
                   <span key={skill} className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
                     {skill}
                   </span>
                 ))}
               </div>
               <div className="mb-4 flex items-center justify-between text-sm text-slate-600">
-                <span>Salary: {career.salary}</span>
-                <span>{career.createdAt ? new Date(career.createdAt).toLocaleDateString() : ''}</span>
+                <span>Salary: {career.averageSalary}</span>
+                <span>{savedAt ? new Date(savedAt).toLocaleDateString() : ''}</span>
               </div>
               <div className="flex gap-3">
-                <Link to={`/careers/${career.id}`} className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
+                <Link to={`/careers/${career._id}`} className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
                   View details
                 </Link>
-                <button type="button" onClick={() => void onRemove(career.id)} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                <button type="button" onClick={() => void onRemove(career._id)} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
                   Remove
                 </button>
               </div>

@@ -31,12 +31,12 @@ export function DashboardSavedCareersWidget({ summary, loading, onToggleSave, is
       ) : summary && summary.recent.length ? (
         <div className="space-y-3">
           {summary.recent.map((entry) => (
-            <div key={entry.id} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+            <div key={entry._id} className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
               <div>
                 <p className="font-semibold text-slate-900">{entry.career?.title ?? entry.careerId}</p>
                 <p className="text-sm text-slate-600">{entry.career?.category ?? 'Saved career'}</p>
               </div>
-              {entry.career ? <SaveCareerButton career={entry.career} isSaved={isSaved(entry.career.id)} onToggle={onToggleSave} /> : null}
+              {entry.career ? <SaveCareerButton career={entry.career} isSaved={isSaved(entry.career._id)} onToggle={onToggleSave} /> : null}
             </div>
           ))}
           <div className="rounded-2xl bg-slate-900 px-4 py-3 text-sm font-semibold text-white">
