@@ -3,6 +3,7 @@ import axios from 'axios';
 import type { Career } from '../types';
 import { useSavedCareers } from '../hooks/useSavedCareers';
 import { SaveCareerButton } from '../components/SaveCareerButton';
+import { API_BASE as API } from '../api';
 
 interface Suggestion {
   _id: string;
@@ -17,7 +18,7 @@ interface Pagination {
   totalPages: number;
 }
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+
 
 export default function CareerSearch() {
   const [query, setQuery] = useState('');

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/auth.css';
 import AuthHero from './AuthHero';
+import { API_BASE } from '../../api';
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ function LoginForm() {
 
     try {
       const response = await axios.post(
-        'http://localhost:3001/api/auth/login',
+        `${API_BASE}/auth/login`,
         {
           email: formData.email.trim(),
           password: formData.password,

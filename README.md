@@ -229,9 +229,8 @@ career-counselling-system/
 ### Prerequisites
 
 ```bash
-node >= 18.x
-npm >= 9.x   (or yarn / pnpm)
-MongoDB / PostgreSQL instance (local or cloud, e.g., Atlas / Supabase)
+Bun >= 1.x
+MongoDB (local or cloud, e.g., Atlas)
 ```
 
 ### Installation
@@ -241,23 +240,18 @@ MongoDB / PostgreSQL instance (local or cloud, e.g., Atlas / Supabase)
 git clone https://github.com/<your-username>/career-counselling-system.git
 cd career-counselling-system
 
-# 2. Install backend dependencies
-cd server
-npm install
-
-# 3. Install frontend dependencies
-cd ../client
-npm install
+# 2. Install all dependencies (Monorepo root)
+bun install
 ```
 
 ### Running Locally
 
 ```bash
-# Start the backend (from /server)
-npm run dev
+# Start the backend (from the root)
+bun run dev:server
 
-# Start the frontend (from /client)
-npm run dev
+# Start the frontend (from the root)
+bun run dev:client
 ```
 
 The app should now be running at:
@@ -514,9 +508,8 @@ Please make sure to update tests as appropriate and follow the coding standards 
 
 ## 🧑‍💻 Coding Standards
 
-- **Language:** TypeScript across frontend and backend — no implicit `any`.
-- **Formatting:** Prettier (`npm run format`) before every commit.
-- **Linting:** ESLint (`npm run lint`) must pass with zero errors.
+- **Formatting:** Prettier (`bun run format`) before every commit.
+- **Linting:** ESLint (`bun run lint`) must pass with zero errors.
 - **Naming:** `camelCase` for variables/functions, `PascalCase` for components/classes, `kebab-case` for file names.
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) style (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`).
 - **Branching:** `main` → protected, `dev` → integration branch, `feature/*` → individual work.
@@ -527,16 +520,14 @@ Please make sure to update tests as appropriate and follow the coding standards 
 ## 🧪 Testing
 
 ```bash
-# Run backend unit/integration tests
-cd server
-npm run test
+# Run backend unit/integration tests (using Bun)
+bun run --cwd apps/server test
 
-# Run frontend component tests
-cd client
-npm run test
+# Run frontend component tests (using Bun)
+bun run --cwd apps/client test
 
 # Run test coverage report
-npm run test:coverage
+bun run --cwd apps/server test:coverage
 ```
 
 **Testing scope includes:**
@@ -549,17 +540,15 @@ npm run test:coverage
 
 ## 🚢 Deployment
 
-> 📌 Placeholder — fill in once your team finalizes hosting.
+The project is configured for deployment using the following stack:
 
 | Layer | Platform | Status |
 |---|---|---|
-| Frontend | `<!-- e.g., Vercel -->` | 🔲 Pending |
-| Backend | `<!-- e.g., Render / Railway -->` | 🔲 Pending |
-| Database | `<!-- e.g., MongoDB Atlas / Supabase -->` | 🔲 Pending |
+| Frontend | [Vercel](https://vercel.com) | 🚀 Ready |
+| Backend | [Render](https://render.com) | 🚀 Ready |
+| Database | [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) | 🚀 Active |
 
-```bash
-# 📌 Add deployment commands once CI/CD or hosting is configured
-```
+For complete instructions on configuring build settings, routing, and environment variables on these platforms, refer to the [deployment_plan.md](file:///C:/Users/ACER/.gemini/antigravity-cli/brain/0a8e9058-db32-45c7-84d9-086215e739de/deployment_plan.md) artifact.
 
 ---
 

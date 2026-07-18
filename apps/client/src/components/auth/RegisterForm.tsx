@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/auth.css';
 import AuthHero from './AuthHero';
+import { API_BASE } from '../../api';
 
 const passwordPolicy = /^(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,}$/;
 
@@ -99,11 +100,9 @@ function RegisterForm() {
       return;
     }
 
-    setIsSubmitting(true);
-
     try {
       const response = await axios.post(
-        'http://localhost:3001/api/auth/register',
+        `${API_BASE}/auth/register`,
         {
           fullName: formData.name.trim(),
           email: formData.email.trim(),
