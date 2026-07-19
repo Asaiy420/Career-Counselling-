@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
           <Link to="/" className="sh-nav-logo">
             {/* Logo placeholder - Left empty as requested */}
             <div className="sh-logo-placeholder" aria-label="SkillHive Digital Logo">
-              [ Logo Area ]
+              Skill Hive Digital
             </div>
           </Link>
 

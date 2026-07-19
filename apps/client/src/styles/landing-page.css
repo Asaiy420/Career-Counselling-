@@ -352,6 +352,7 @@
 @media (min-width: 768px) {
   .sh-nav-actions {
     display: flex;
+    align-items: center;
   }
 }
 
@@ -371,6 +372,9 @@
 .sh-nav-btn {
   font-size: 0.9rem;
   padding: 10px 20px;
+  align-self: center;
+  height: auto;
+  white-space: nowrap;
 }
 
 /* Mobile Nav Toggle */
