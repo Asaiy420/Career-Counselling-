@@ -1,607 +1,467 @@
 <div align="center">
 
-<!-- PROJECT BANNER -->
-<!-- 📌 Replace this with your actual banner image once designed -->
-<!-- <img src="./docs/assets/banner.png" alt="Career Counselling System Banner" width="100%" /> -->
+# Skill Hive
 
-# 🎯 Skill Hive Digital
+### AI-Powered Career Counselling Platform
 
-### AI-Assisted Career Discovery for Students & Job Seekers
+**Discover the career path that fits *you* — guided by Google Gemini AI and a structured, explainable assessment engine.**
 
-**Discover the career that fits *you* — powered by a smart, explainable recommendation engine.**
-
-<!-- 📌 Replace with a live demo link once deployed -->
-[**Live Demo**](#) · [**Documentation**](#-table-of-contents) · [**Report Bug**](../../issues) · [**Request Feature**](../../issues)
+[**Live Demo**](#) · [**Report a Bug**](../../issues) · [**Request a Feature**](../../issues)
 
 <br/>
 
-<!-- BADGES -->
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Version](https://img.shields.io/badge/version-1.0.0--MVP-orange.svg)
 ![Status](https://img.shields.io/badge/status-in%20development-yellow.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
-![Open Source](https://img.shields.io/badge/open%20source-%E2%9D%A4-red.svg)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)
-![Made with React](https://img.shields.io/badge/frontend-React%20%2F%20Next.js-61DAFB?logo=react&logoColor=white)
-![Node.js](https://img.shields.io/badge/backend-Node.js-339933?logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React%2019-61DAFB?logo=react&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![Bun](https://img.shields.io/badge/Bun-000000?logo=bun&logoColor=white)
 
 </div>
 
-<br/>
+---
 
-<!-- 📌 SCREENSHOT / PRODUCT SHOT PLACEHOLDER -->
-<div align="center">
-<!-- <img src="./docs/assets/hero-screenshot.png" alt="Product Screenshot" width="85%" /> -->
-<em>🖼️ Product screenshot / hero GIF placeholder — add once the UI is built</em>
-</div>
+## Table of Contents
 
-<br/>
+- [About the Project](#about-the-project)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Architecture Overview](#architecture-overview)
+- [Repository Structure](#repository-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [API Reference](#api-reference)
+- [Database Schema](#database-schema)
+- [User Roles & Permissions](#user-roles--permissions)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## 📋 Table of Contents
+## About the Project
 
-- [About the Project](#-about-the-project)
-- [Why This Project?](#-why-this-project)
-- [Key Features](#-key-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture Overview](#-architecture-overview)
-- [Folder Structure](#-folder-structure)
-- [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [API Overview](#-api-overview)
-- [Database Overview](#-database-overview)
-- [Screenshots](#-screenshots)
-- [Workflow Diagrams](#-workflow-diagrams)
-- [User Roles & Permissions](#-user-roles--permissions)
-- [Sprint Planning Summary](#-sprint-planning-summary)
-- [Future Roadmap](#-future-roadmap)
-- [Contributing](#-contributing)
-- [Coding Standards](#-coding-standards)
-- [Testing](#-testing)
-- [Deployment](#-deployment)
-- [Team](#-team)
-- [Project Management](#-project-management)
-- [Lessons Learned](#-lessons-learned)
-- [Acknowledgements](#-acknowledgements)
-- [License](#-license)
+**Skill Hive** is a full-stack web application that helps students and early-career professionals make informed, data-backed career decisions.
+
+Users complete a structured assessment covering their **education level, interests, skills, and preferred work environment**. Their responses are sent to **Google Gemini AI**, which returns personalized career recommendations with match scores and detailed rationale — not generic advice, but explainable, actionable guidance.
+
+Beyond the assessment, users can browse a curated career library, save careers to a personal shortlist, and view their full recommendation history from a personalized dashboard.
+
+> This project was built as a team capstone for a Software Project Management course, following a complete SDLC: requirements engineering, sprint planning, agile execution, and deployment.
 
 ---
 
-## 🧭 About the Project
-
-**Career Counselling System** is a full-stack web application that helps students and early-career job seekers make informed career decisions. Instead of generic advice, users complete a structured assessment covering their **interests, skills, educational background, and preferred work environment** — and receive **personalized, explainable career recommendations** generated by a rule-based matching engine.
-
-Users can dive into detailed career profiles, bookmark the ones they're most interested in, and track how their results evolve over time through a personalized dashboard. Administrators maintain the underlying career and question data through a dedicated admin panel — no code changes required.
-
-This project was built as a **team capstone for a Software Project Management course**, following a full SDLC process: requirements gathering, sprint planning, agile execution, and deployment — mirroring how a real product team would operate.
-
-> 📄 A full Software Requirements Specification (SRS) document is available in [`/docs`](./docs) for anyone who wants to see the complete requirements, user stories, and traceability matrix behind this build.
-
----
-
-## 💡 Why This Project?
-
-Career guidance is often expensive, inaccessible, or generic. This project exists to answer a simple question:
-
-> **"What if every student had access to structured, explainable career guidance — for free, in five minutes?"**
-
-Key design principles behind this project:
-
-- 🎯 **Explainable, not a black box** — every recommendation tells you *why* it matched you.
-- 🧩 **Structured over generic** — assessment-driven results instead of vague listicles.
-- 🛠️ **Admin-editable** — career and question data isn't hardcoded; it evolves without redeployment.
-- 📱 **Accessible everywhere** — fully responsive, works on any device.
-- 🏗️ **Built like a real product** — proper sprints, requirements docs, and role-based access, not just a class assignment thrown together.
-
----
-
-## ✨ Key Features
+## Key Features
 
 | | Feature | Description |
-|---|---|---|
-| 🔐 | **JWT Authentication** | Secure sign up, login, and logout with token-based session management |
-| 👤 | **User Profiles** | Manage personal info — name, email, education level, field of study |
-| 📝 | **Career Assessment Questionnaire** | Structured questions on interests, skills, and preferred work environment |
-| 🎯 | **Career Recommendation Engine** | Rule-based matching engine that ranks and explains career suggestions |
-| 📖 | **Career Details Pages** | In-depth overview, required skills, responsibilities, learning path, salary & future scope |
-| ⭐ | **Save / Bookmark Careers** | Shortlist careers and revisit them anytime |
-| 📊 | **Personalized Dashboard** | One-stop summary of profile, latest results, and saved careers |
-| 🕓 | **Assessment History** | Retake assessments and track how recommendations evolve |
-| 🛡️ | **Admin Panel** | Manage careers and questions without touching code |
-| 🗂️ | **Career Management** | Full CRUD for career records (admin only) |
-| ❓ | **Question Management** | Full CRUD for assessment questions (admin only) |
-| 📱 | **Responsive UI** | Optimized experience across desktop, tablet, and mobile |
+|:---:|---|---|
+| 🔐 | **JWT Authentication** | Secure registration, login, and logout with token-based sessions |
+| 👤 | **Student Profiles** | Capture education level, skills, and interests linked to each user account |
+| 📝 | **Career Assessment** | Structured questionnaire covering skills, interests, and work preferences |
+| 🤖 | **Gemini AI Recommendations** | Google Gemini generates top career matches with a match score and detailed reasoning |
+| 🔍 | **Career Search & Filter** | Full-text search across the career library, filterable by category |
+| 📖 | **Career Detail Pages** | Each career includes description, required skills, salary range, growth outlook, and work environment |
+| ⭐ | **Save Careers** | Bookmark careers and revisit them from a dedicated saved careers page |
+| 📊 | **Personalized Dashboard** | Overview of profile, latest AI recommendations, and saved careers |
+| 🕓 | **Assessment History** | All past assessments and AI recommendations are stored and viewable |
+| 📱 | **Responsive UI** | Fully optimized across desktop, tablet, and mobile with Tailwind CSS v4 |
 
 ---
 
-## 🧱 Tech Stack
-
-> 📌 Placeholders below — update with the exact versions/tools your team finalizes.
+## Tech Stack
 
 <table>
 <tr>
 <td valign="top" width="33%">
 
 **Frontend**
-- React / Next.js
-- TypeScript
-- Tailwind CSS
+- React 19
+- TypeScript 7
+- React Router v7
+- Tailwind CSS v4
+- Zustand (state management)
+- React Hook Form + Zod (validation)
+- Axios (HTTP client)
+- Vite 8 (build tool)
 
 </td>
 <td valign="top" width="33%">
 
 **Backend**
 - Node.js
-- Express.js
+- Express 5
 - TypeScript
+- Mongoose 9 (MongoDB ODM)
+- JSON Web Tokens (JWT)
+- bcrypt (password hashing)
+- tsx (TypeScript runner)
 
 </td>
 <td valign="top" width="33%">
 
-**Database & Auth**
-- MongoDB / PostgreSQL
-- JWT (JSON Web Tokens)
+**AI & Infrastructure**
+- Google Gemini AI (`@google/generative-ai`)
+- MongoDB (via MongoDB Atlas)
+- Bun (package manager & monorepo runner)
+- ESLint (code quality)
+- dotenv (environment configuration)
 
 </td>
 </tr>
 </table>
 
-**Deployment:** `<!-- 📌 e.g., Vercel (frontend) + Render/Railway (backend) + MongoDB Atlas -->`
-
-**Other Tools:** `<!-- 📌 e.g., ESLint, Prettier, Jest, GitHub Actions, Postman -->`
+**Deployment:** Vercel (frontend) · Render (backend) · MongoDB Atlas (database)
 
 ---
 
-## 🏛️ Architecture Overview
-
-<!-- 📌 Replace with an actual architecture diagram (draw.io / Excalidraw / Figma export) -->
-<div align="center">
-<em>🖼️ Architecture diagram placeholder — client / server / database flow</em>
+## Architecture Overview
 
 ```
-┌──────────────────┐        ┌──────────────────┐        ┌──────────────────┐
-│                  │  HTTPS │                  │        │                  │
-│  Frontend (SPA)  │───────▶│   REST API       │───────▶│   Database       │
-│  React / Next.js │◀───────│   Node + Express │◀───────│ MongoDB/Postgres │
-│                  │  JSON  │   (JWT protected)│        │                  │
-└──────────────────┘        └──────────────────┘        └──────────────────┘
-        │                            │
-        │                            │
-        ▼                            ▼
- Client-side State           Recommendation Engine
- (Auth token, UI state)      (Rule-based scoring)
+┌──────────────────────┐        ┌──────────────────────┐        ┌──────────────────────┐
+│                      │ HTTPS  │                      │        │                      │
+│  React SPA (Vite)    │───────▶│  Express REST API    │───────▶│   MongoDB Atlas      │
+│  Tailwind CSS v4     │◀───────│  Node.js + JWT Auth  │◀───────│   Mongoose ODM       │
+│  Zustand State       │  JSON  │                      │        │                      │
+└──────────────────────┘        └──────────┬───────────┘        └──────────────────────┘
+                                           │
+                                           ▼
+                                ┌──────────────────────┐
+                                │  Google Gemini AI    │
+                                │  Career Recommendations│
+                                │  & Roadmap Generation │
+                                └──────────────────────┘
 ```
-
-</div>
 
 The system follows a classic **three-tier architecture**:
 
-1. **Presentation Layer** — React/Next.js SPA consuming a REST API, styled with Tailwind CSS.
-2. **Application Layer** — Node.js/Express REST API handling auth, business logic, and the recommendation engine, secured via JWT middleware and role-based access control.
-3. **Data Layer** — MongoDB/PostgreSQL storing Users, Careers, Questions, Assessments, and SavedCareers collections/tables.
+1. **Presentation Layer** — React 19 SPA served by Vite, using React Router v7 for client-side routing and Zustand for global auth state.
+2. **Application Layer** — Express 5 REST API handling auth, career browsing, assessment submission, and AI-powered recommendation generation via JWT-protected routes.
+3. **Data Layer** — MongoDB (Atlas) storing Users, StudentProfiles, Careers, AssessmentSubmissions, and SavedCareers, accessed through Mongoose schemas.
 
 ---
 
-## 📁 Folder Structure
+## Repository Structure
+
+This is a **Bun monorepo** with two workspaces: `apps/client` and `apps/server`.
 
 ```
-career-counselling-system/
-├── client/                      # Frontend application
-│   ├── public/
-│   ├── src/
-│   │   ├── components/          # Reusable UI components
-│   │   ├── pages/                # Route-level pages
-│   │   ├── features/             # Feature-based modules (auth, assessment, etc.)
-│   │   ├── hooks/                 # Custom React hooks
-│   │   ├── services/              # API client / axios instances
-│   │   ├── context/                # Auth & global state providers
-│   │   ├── types/                   # Shared TypeScript types
-│   │   └── utils/                    # Helper functions
-│   └── package.json
+career-counselling/
+├── apps/
+│   ├── client/                        # React + Vite frontend
+│   │   ├── src/
+│   │   │   ├── pages/                 # Route-level page components
+│   │   │   │   ├── LandingPage.tsx
+│   │   │   │   ├── Dashboard.tsx
+│   │   │   │   ├── Assessment.tsx
+│   │   │   │   ├── Recommendations.tsx
+│   │   │   │   ├── CareerSearch.tsx
+│   │   │   │   ├── CareerDetail.tsx
+│   │   │   │   ├── SavedCareers.tsx
+│   │   │   │   ├── Profile.tsx
+│   │   │   │   ├── Login.tsx
+│   │   │   │   └── Register.tsx
+│   │   │   ├── components/            # Reusable UI components
+│   │   │   ├── hooks/                 # Custom React hooks
+│   │   │   ├── data/                  # Static data / question bank
+│   │   │   ├── styles/                # Global style utilities
+│   │   │   ├── types/                 # Shared TypeScript types
+│   │   │   ├── utils/                 # Helper functions
+│   │   │   ├── api.ts                 # Axios instance & API helpers
+│   │   │   ├── types.ts               # Core domain types
+│   │   │   ├── App.tsx                # Root router
+│   │   │   └── main.tsx               # Application entry point
+│   │   ├── index.html
+│   │   ├── vite.config.ts
+│   │   └── package.json
+│   │
+│   └── server/                        # Express + Node.js backend
+│       ├── src/
+│       │   ├── controllers/           # Route handler logic
+│       │   ├── middleware/            # JWT auth middleware
+│       │   ├── models/                # Mongoose schemas
+│       │   │   ├── user.model.ts
+│       │   │   ├── student.model.ts
+│       │   │   ├── career.model.ts
+│       │   │   ├── AssessmentSubmission.ts
+│       │   │   └── SavedCareer.ts
+│       │   ├── routes/                # Express route definitions
+│       │   │   ├── auth.route.ts
+│       │   │   ├── career.route.ts
+│       │   │   └── assessment.route.ts
+│       │   ├── lib/
+│       │   │   └── db.ts              # MongoDB connection
+│       │   ├── utils/                 # Server-side helpers
+│       │   ├── seed.ts                # Database seeding script
+│       │   └── index.ts              # Server entry point (port 3001)
+│       └── package.json
 │
-├── server/                      # Backend application
-│   ├── src/
-│   │   ├── config/                # DB connection, env config
-│   │   ├── controllers/           # Route handlers
-│   │   ├── middleware/            # Auth, error handling, validation
-│   │   ├── models/                 # Database schemas/models
-│   │   ├── routes/                  # API route definitions
-│   │   ├── services/                 # Business logic (incl. recommendation engine)
-│   │   └── utils/                     # Helper functions
-│   └── package.json
-│
-├── docs/                         # Project documentation
-│   ├── SRS.md                    # Full Software Requirements Specification
-│   ├── assets/                    # Diagrams, screenshots, banners
-│   └── api/                        # API documentation
-│
-├── .env.example                  # Environment variable template
-├── .gitignore
-├── LICENSE
+├── package.json                       # Monorepo root (Bun workspaces)
+├── bun.lock
+├── backend_design.md                  # Backend architecture reference
 └── README.md
 ```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-```bash
-Bun >= 1.x
-MongoDB (local or cloud, e.g., Atlas)
-```
+Ensure you have the following installed:
+
+| Tool | Version |
+|---|---|
+| [Bun](https://bun.sh/) | `>= 1.x` |
+| [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas) | or local MongoDB instance |
+| [Google AI Studio API Key](https://aistudio.google.com/app/apikey) | For Gemini AI features |
 
 ### Installation
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/<your-username>/career-counselling-system.git
-cd career-counselling-system
+git clone https://github.com/Asaiy420/Career-Counselling-.git
+cd career-counselling
 
-# 2. Install all dependencies (Monorepo root)
+# 2. Install all dependencies from the monorepo root
 bun install
 ```
 
 ### Running Locally
 
 ```bash
-# Start the backend (from the root)
+# Start the backend API server (runs on http://localhost:3001)
 bun run dev:server
 
-# Start the frontend (from the root)
+# Start the frontend dev server (runs on http://localhost:5173)
 bun run dev:client
 ```
 
-The app should now be running at:
+> Run both commands in separate terminal windows.
 
-- Frontend → `http://localhost:3000`
-- Backend API → `http://localhost:5000` <!-- 📌 update port as needed -->
+| Service | URL |
+|---|---|
+| Frontend | `http://localhost:5173` |
+| Backend API | `http://localhost:3001` |
 
-<details>
-<summary><strong>🐳 Optional: Run with Docker</strong></summary>
+### Seeding the Database
+
+To populate the database with initial career data:
 
 ```bash
-# 📌 Placeholder — add once Dockerfiles / docker-compose.yml are created
-docker-compose up --build
+bun run --cwd apps/server tsx src/seed.ts
 ```
-
-</details>
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
-Create a `.env` file in `/server` (and `/client` if needed) based on `.env.example`:
+Create a `.env` file at the **project root** (it is loaded by the server via `dotenv`):
 
-**server/.env**
 ```env
 # Server
-PORT=5000
-NODE_ENV=development
+PORT=3001
 
 # Database
-DATABASE_URL=mongodb://localhost:27017/career-counselling
-# or for PostgreSQL:
-# DATABASE_URL=postgresql://user:password@localhost:5432/career_counselling
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/career-counselling-db
 
 # Authentication
-JWT_SECRET=your_jwt_secret_here
-JWT_EXPIRES_IN=1h
-REFRESH_TOKEN_SECRET=your_refresh_token_secret_here
+JWT_SECRET=your_super_secret_key_here
+
+# Google Gemini AI
+GEMINI_API_KEY=your_google_gemini_api_key_here
 
 # CORS
-CLIENT_URL=http://localhost:3000
+CLIENT_URL=http://localhost:5173
 ```
 
-**client/.env.local**
-```env
-NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api
+> ⚠️ **Never commit `.env` files.** Add them to `.gitignore`. Only commit `.env.example` as a reference template.
+
+---
+
+## API Reference
+
+All API routes are prefixed with `/api`. Protected routes require a `Bearer <token>` in the `Authorization` header.
+
+### Authentication — `/api/auth`
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| `POST` | `/api/auth/register` | Register a new user account | ❌ |
+| `POST` | `/api/auth/login` | Authenticate and receive a JWT | ❌ |
+| `POST` | `/api/auth/logout` | Invalidate the current session | ✅ |
+
+### Careers — `/api/careers`
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| `GET` | `/api/careers/search` | Full-text search across careers | ❌ |
+| `GET` | `/api/careers/categories` | List all available career categories | ❌ |
+| `GET` | `/api/careers/suggestions` | Get career suggestions (typeahead) | ❌ |
+| `GET` | `/api/careers/:id` | Get full details for a specific career | ❌ |
+| `GET` | `/api/careers/saved` | Get the authenticated user's saved careers | ✅ |
+| `POST` | `/api/careers/saved` | Save / bookmark a career | ✅ |
+| `DELETE` | `/api/careers/saved/:careerId` | Remove a saved career | ✅ |
+
+### Assessments — `/api/assessments`
+
+| Method | Endpoint | Description | Auth |
+|--------|----------|-------------|------|
+| `POST` | `/api/assessments/submit` | Submit assessment answers and receive Gemini AI career recommendations | ✅ |
+
+**Assessment Submission Body:**
+```json
+{
+  "answers": [
+    { "questionId": "q1", "answer": "Technology" },
+    { "questionId": "q2", "answer": "Remote" }
+  ]
+}
 ```
 
-> ⚠️ Never commit `.env` files. `.env.example` should be the only version-controlled reference.
+**Recommendation Response:**
+```json
+{
+  "recommendations": [
+    {
+      "title": "Software Engineer",
+      "matchScore": 92,
+      "reason": "Strong alignment with your interest in technology and preference for remote work.",
+      "requiredSkills": ["JavaScript", "System Design", "Data Structures"]
+    }
+  ]
+}
+```
 
 ---
 
-## 🔌 API Overview
+## Database Schema
 
-> 📌 Full API documentation should live in [`/docs/api`](./docs/api) (e.g., Swagger/OpenAPI or Postman collection). Summary below:
+The application uses **MongoDB** with the following Mongoose collections:
 
-<details>
-<summary><strong>Auth Endpoints</strong></summary>
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|--------------|----------------|
-| POST | `/api/auth/register` | Register a new user | ❌ |
-| POST | `/api/auth/login` | Log in and receive JWT | ❌ |
-| POST | `/api/auth/logout` | Log out current session | ✅ |
-
-</details>
-
-<details>
-<summary><strong>Profile Endpoints</strong></summary>
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|--------------|----------------|
-| GET | `/api/users/me` | Get current user profile | ✅ |
-| PUT | `/api/users/me` | Update current user profile | ✅ |
-
-</details>
-
-<details>
-<summary><strong>Assessment & Recommendation Endpoints</strong></summary>
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|--------------|----------------|
-| GET | `/api/questions` | Fetch active assessment questions | ✅ |
-| POST | `/api/assessments` | Submit assessment responses | ✅ |
-| GET | `/api/assessments/latest` | Get latest assessment + recommendations | ✅ |
-| GET | `/api/assessments/history` | Get all past assessments | ✅ |
-
-</details>
-
-<details>
-<summary><strong>Career Endpoints</strong></summary>
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|--------------|----------------|
-| GET | `/api/careers` | List all active careers | ❌ |
-| GET | `/api/careers/:id` | Get career details | ❌ |
-| POST | `/api/saved-careers/:id` | Save/bookmark a career | ✅ |
-| DELETE | `/api/saved-careers/:id` | Remove a saved career | ✅ |
-| GET | `/api/saved-careers` | List user's saved careers | ✅ |
-
-</details>
-
-<details>
-<summary><strong>Admin Endpoints</strong></summary>
-
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|--------------|----------------|
-| POST | `/api/admin/careers` | Add a career | ✅ Admin |
-| PUT | `/api/admin/careers/:id` | Edit a career | ✅ Admin |
-| DELETE | `/api/admin/careers/:id` | Soft-delete a career | ✅ Admin |
-| POST | `/api/admin/questions` | Add a question | ✅ Admin |
-| PUT | `/api/admin/questions/:id` | Edit a question | ✅ Admin |
-| DELETE | `/api/admin/questions/:id` | Soft-delete a question | ✅ Admin |
-| GET | `/api/admin/users` | View registered users | ✅ Admin |
-
-</details>
-
----
-
-## 🗄️ Database Overview
-
-<!-- 📌 Replace with a real ER diagram export -->
-<div align="center">
-<em>🖼️ ER diagram placeholder — Users / Careers / Questions / Assessments / SavedCareers</em>
-</div>
-
-**Core Collections / Tables:**
-
-| Collection | Purpose |
-|---|---|
-| `Users` | Stores account credentials and profile information |
-| `Careers` | Stores career metadata, skills, responsibilities, and matching tags |
-| `Questions` | Stores assessment questions, options, and matching tags |
-| `Assessments` | Stores each user's responses and generated recommendations, timestamped |
-| `SavedCareers` | Join table linking users to bookmarked careers |
-
-> 📄 Full schema definitions with field types and constraints are documented in [`/docs/SRS.md`](./docs/SRS.md).
-
----
-
-## 🖼️ Screenshots
-
-<!-- 📌 Add real screenshots as the UI is built -->
-
-| Login | Assessment | Recommendations |
+### `users`
+| Field | Type | Notes |
 |---|---|---|
-| _placeholder_ | _placeholder_ | _placeholder_ |
+| `fullName` | `String` | Required |
+| `email` | `String` | Required, unique, indexed |
+| `password` | `String` | Hashed with bcrypt |
+| `role` | `String` | `user` \| `admin` \| `student` (default: `user`) |
+| `createdAt` | `Date` | Auto-generated |
 
-| Career Details | Dashboard | Admin Panel |
+### `careers`
+| Field | Type | Notes |
 |---|---|---|
-| _placeholder_ | _placeholder_ | _placeholder_ |
+| `title` | `String` | Full-text indexed |
+| `description` | `String` | Full-text indexed |
+| `category` | `String` | Enum: Technology, Healthcare, Engineering, Business, Arts & Design, Education, Science, Legal, Finance, Marketing |
+| `requiredSkills` | `[String]` | Array of skill tags |
+| `educationRequired` | `String` | Minimum qualification |
+| `averageSalary` | `String` | Salary range display string |
+| `growthOutlook` | `String` | `Declining` \| `Stable` \| `Growing` \| `Fast Growing` |
+| `workEnvironment` | `String` | `Remote` \| `Office` \| `Hybrid` \| `Field` \| `Lab` \| `Variable` |
+| `isActive` | `Boolean` | Soft-delete flag (default: `true`) |
+
+### `studentprofiles`
+| Field | Type | Notes |
+|---|---|---|
+| `userId` | `ObjectId` | Ref: `User` |
+| `fullName` | `String` | Mirrored from user |
+| `educationLevel` | `String` | Required at profile creation |
+| `interests` | `[String]` | User-defined interest tags |
+| `skills` | `[String]` | User-defined skill tags |
+
+### `assessmentsubmissions`
+| Field | Type | Notes |
+|---|---|---|
+| `studentId` | `ObjectId` | Ref: `User` |
+| `answers` | `[{ questionId, answer }]` | Raw question-answer pairs |
+| `recommendations` | `[String]` | AI-generated career recommendations |
+| `submittedAt` | `Date` | Timestamp (default: `Date.now`) |
+
+### `savedcareers`
+| Field | Type | Notes |
+|---|---|---|
+| `userId` | `ObjectId` | Ref: `User` |
+| `careerId` | `ObjectId` | Ref: `Career` |
+| `savedAt` | `Date` | Timestamp (default: `Date.now`) |
+
+> Compound unique index on `{ userId, careerId }` prevents duplicate saves.
 
 ---
 
-## 🔄 Workflow Diagrams
+## User Roles & Permissions
 
-<details>
-<summary><strong>User Assessment → Recommendation Flow</strong></summary>
-
-<!-- 📌 Replace with an actual flowchart image -->
-```
-[Login] → [Start Assessment] → [Answer Questions] → [Submit]
-   → [Recommendation Engine Scores Careers] → [Ranked Results Displayed]
-   → [User Views Career Details] → [User Saves Career] → [Dashboard Updated]
-```
-
-</details>
-
-<details>
-<summary><strong>Admin Content Management Flow</strong></summary>
-
-```
-[Admin Login] → [Admin Panel] → [Add/Edit/Delete Career or Question]
-   → [Validation] → [Change Reflected in Live Assessment/Recommendations]
-```
-
-</details>
-
----
-
-## 👥 User Roles & Permissions
-
-| Capability | Student / User | Administrator |
+| Capability | User / Student | Admin |
 |---|:---:|:---:|
-| Register / Login / Logout | ✅ | ✅ |
-| View & edit own profile | ✅ | ✅ |
-| Take / retake assessment | ✅ | ✅ |
-| View own recommendations & history | ✅ | ✅ |
+| Register & login | ✅ | ✅ |
+| Take career assessment | ✅ | ✅ |
+| View AI recommendations | ✅ | ✅ |
+| Browse & search careers | ✅ | ✅ |
 | Save / unsave careers | ✅ | ✅ |
-| View own dashboard | ✅ | ✅ |
-| Add / edit / delete careers | ❌ | ✅ |
-| Add / edit / delete questions | ❌ | ✅ |
-| View registered users | ❌ | ✅ |
+| View personalized dashboard | ✅ | ✅ |
+| Edit own profile | ✅ | ✅ |
+| Create / update / delete careers | ❌ | ✅ |
+| View all registered users | ❌ | ✅ |
 
 ---
 
-## 🗓️ Sprint Planning Summary
+## Roadmap
 
-This project was delivered across **4 sprints (8 weeks)** using an Agile approach.
-
-| Sprint | Duration | Focus | Key Deliverables |
-|---|---|---|---|
-| **Sprint 1** | Weeks 1–2 | Foundation | Project setup, database schemas, authentication, user profile |
-| **Sprint 2** | Weeks 3–4 | Core Intelligence | Assessment questionnaire, response storage, recommendation engine |
-| **Sprint 3** | Weeks 5–6 | User Experience | Career details, saved careers, personalized dashboard |
-| **Sprint 4** | Weeks 7–8 | Polish & Ship | Admin panel, full testing, bug fixes, deployment |
-
-> 📄 Full sprint-level requirements, acceptance criteria, and a feature traceability matrix are available in [`/docs/SRS.md`](./docs/SRS.md).
-
----
-
-## 🛣️ Future Roadmap
-
-- [x] Core MVP: Auth, Assessment, Recommendations, Dashboard
-- [x] Admin panel for career & question management
-- [ ] Email verification & password reset flow
-- [ ] Career comparison tool (side-by-side saved careers)
-- [ ] ML-based recommendation engine (beyond rule-based scoring)
-- [ ] Integration with live labor market / salary data APIs
-- [ ] Analytics dashboard for admins (popular careers, skill gap trends)
+- [x] JWT authentication (register, login, logout)
+- [x] Student profile creation
+- [x] Career library with search, filters, and categories
+- [x] AI-powered career assessment (Google Gemini)
+- [x] Save / bookmark careers
+- [x] Personalized dashboard
+- [x] Assessment submission history
+- [ ] Career roadmap generation (step-by-step learning path via Gemini)
+- [ ] Human counsellor booking & availability management
+- [ ] In-app messaging between students and counsellors
+- [ ] Email verification & password reset
+- [ ] Career comparison tool (side-by-side view)
+- [ ] Admin panel for career & question CRUD
+- [ ] Analytics dashboard for admins
 - [ ] Multi-language support
-- [ ] Native mobile app
-- [ ] Human counsellor booking / chat feature
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
-Contributions, issues, and feature requests are welcome! This started as an academic project, but it's built to be extended.
+Contributions, issues, and feature requests are welcome.
 
 <details>
-<summary><strong>How to contribute</strong></summary>
+<summary><strong>Contribution Workflow</strong></summary>
 
 1. Fork the repository
-2. Create your feature branch
+2. Create a feature branch:
    ```bash
-   git checkout -b feature/amazing-feature
+   git checkout -b feature/your-feature-name
    ```
-3. Commit your changes
+3. Commit using [Conventional Commits](https://www.conventionalcommits.org/):
    ```bash
-   git commit -m "feat: add amazing feature"
+   git commit -m "feat: add career roadmap generation"
    ```
-4. Push to your branch
+4. Push your branch:
    ```bash
-   git push origin feature/amazing-feature
+   git push origin feature/your-feature-name
    ```
-5. Open a Pull Request
+5. Open a Pull Request against `dev`
 
 </details>
 
-Please make sure to update tests as appropriate and follow the coding standards below.
+**Coding Standards:**
+- **Formatting:** Prettier before every commit
+- **Linting:** ESLint must pass with zero errors (`bun run --cwd apps/client lint`)
+- **Naming:** `camelCase` for variables/functions · `PascalCase` for components/classes · `kebab-case` for file names
+- **Commits:** Conventional Commits style (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`)
+- **Branching:** `main` → production · `dev` → integration · `feature/*` → individual work
+- **PRs:** At least one team member approval required before merge
 
 ---
 
-## 🧑‍💻 Coding Standards
-
-- **Formatting:** Prettier (`bun run format`) before every commit.
-- **Linting:** ESLint (`bun run lint`) must pass with zero errors.
-- **Naming:** `camelCase` for variables/functions, `PascalCase` for components/classes, `kebab-case` for file names.
-- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) style (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`).
-- **Branching:** `main` → protected, `dev` → integration branch, `feature/*` → individual work.
-- **Code Reviews:** Every PR requires at least one team member's approval before merging.
-
----
-
-## 🧪 Testing
-
-```bash
-# Run backend unit/integration tests (using Bun)
-bun run --cwd apps/server test
-
-# Run frontend component tests (using Bun)
-bun run --cwd apps/client test
-
-# Run test coverage report
-bun run --cwd apps/server test:coverage
-```
-
-**Testing scope includes:**
-- Unit tests for recommendation scoring logic
-- API endpoint integration tests (auth, assessment, careers)
-- Component tests for critical UI flows
-- Manual end-to-end regression testing before each sprint demo
-
----
-
-## 🚢 Deployment
-
-The project is configured for deployment using the following stack:
-
-| Layer | Platform | Status |
-|---|---|---|
-| Frontend | [Vercel](https://vercel.com) | 🚀 Ready |
-| Backend | [Render](https://render.com) | 🚀 Ready |
-| Database | [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) | 🚀 Active |
-
-For complete instructions on configuring build settings, routing, and environment variables on these platforms, refer to the [deployment_plan.md](file:///C:/Users/ACER/.gemini/antigravity-cli/brain/0a8e9058-db32-45c7-84d9-086215e739de/deployment_plan.md) artifact.
-
----
-
-## 👨‍👩‍👧‍👦 Team
-
-This project was built by a 5-member team as part of a Software Project Management course.
-
-| Name | Role | GitHub |
-|---|---|---|
-| **[Your Name]** | Project Manager | [@yourhandle](#) |
-| `[Member 2]` | Backend Developer | [@handle](#) |
-| `[Member 3]` | Frontend Developer | [@handle](#) |
-| `[Member 4]` | Full-Stack Developer | [@handle](#) |
-| `[Member 5]` | QA / Full-Stack Developer | [@handle](#) |
-
----
-
-## 📋 Project Management
-
-As **Project Manager**, my responsibilities on this project included:
-
-- 📐 **Requirements Engineering** — authored the full Software Requirements Specification (SRS), including 25+ functional requirements, non-functional requirements, user stories, and acceptance criteria.
-- 🗓️ **Sprint Planning** — broke the MVP into 4 two-week sprints with clear exit criteria for each.
-- 👥 **Task Allocation** — assigned modules across the team based on skill sets and course load, tracked via GitHub Projects/Issues.
-- ⚠️ **Risk Management** — maintained a risk register (e.g., recommendation engine complexity, seed data sufficiency) with mitigation plans reviewed weekly.
-- 🔍 **Quality Oversight** — enforced acceptance criteria and code review standards before features were marked "done."
-- 📊 **Stakeholder Communication** — reported sprint progress and blockers to the course instructor/evaluator.
-
-> This README and the accompanying [SRS document](./docs/SRS.md) reflect the same planning artifacts used to run the project day-to-day — not retrofitted documentation.
-
----
-
-## 📚 Lessons Learned
-
-<!-- 📌 Fill this in honestly once the project is closer to completion — recruiters value genuine reflection -->
-
-- `[e.g., Balancing scope against a 5-person team's real weekly availability]`
-- `[e.g., Why we chose rule-based matching over ML for an 8-week MVP]`
-- `[e.g., What we'd do differently in sprint estimation next time]`
-- `[e.g., How soft-delete decisions early on saved us rework later]`
-
----
-
-## 🙏 Acknowledgements
-
-- Our course instructor and evaluators, for guidance throughout the project lifecycle
-- [Shields.io](https://shields.io/) for README badges
-- [Excalidraw](https://excalidraw.com/) / [draw.io](https://app.diagrams.net/) for architecture diagrams
-- Open-source libraries and tools this project is built on (see `package.json`)
-
----
-
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
 
@@ -609,10 +469,8 @@ This project is licensed under the **MIT License** — see the [LICENSE](./LICEN
 
 <div align="center">
 
-### ⭐ If you found this project interesting, consider giving it a star!
+**Built with 🧠 and ☕ — Skill Hive**
 
-**Built with 🧠 and ☕ by a 5-person team learning how real software gets shipped.**
-
-[⬆ Back to Top](#-career-counselling-system)
+[⬆ Back to Top](#skill-hive)
 
 </div>
