@@ -4,7 +4,7 @@
 
 ### AI-Powered Career Counselling Platform
 
-**Discover the career path that fits *you* — guided by Google Gemini AI and a structured, explainable assessment engine.**
+**Discover the career path that fits _you_ — guided by Google Gemini AI and a structured, explainable assessment engine.**
 
 [**Live Demo**](#) · [**Report a Bug**](../../issues) · [**Request a Feature**](../../issues)
 
@@ -56,18 +56,18 @@ Beyond the assessment, users can browse a curated career library, save careers t
 
 ## Key Features
 
-| | Feature | Description |
-|:---:|---|---|
-| 🔐 | **JWT Authentication** | Secure registration, login, and logout with token-based sessions |
-| 👤 | **Student Profiles** | Capture education level, skills, and interests linked to each user account |
-| 📝 | **Career Assessment** | Structured questionnaire covering skills, interests, and work preferences |
-| 🤖 | **Gemini AI Recommendations** | Google Gemini generates top career matches with a match score and detailed reasoning |
-| 🔍 | **Career Search & Filter** | Full-text search across the career library, filterable by category |
-| 📖 | **Career Detail Pages** | Each career includes description, required skills, salary range, growth outlook, and work environment |
-| ⭐ | **Save Careers** | Bookmark careers and revisit them from a dedicated saved careers page |
-| 📊 | **Personalized Dashboard** | Overview of profile, latest AI recommendations, and saved careers |
-| 🕓 | **Assessment History** | All past assessments and AI recommendations are stored and viewable |
-| 📱 | **Responsive UI** | Fully optimized across desktop, tablet, and mobile with Tailwind CSS v4 |
+|     | Feature                       | Description                                                                                           |
+| :-: | ----------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 🔐  | **JWT Authentication**        | Secure registration, login, and logout with token-based sessions                                      |
+| 👤  | **Student Profiles**          | Capture education level, skills, and interests linked to each user account                            |
+| 📝  | **Career Assessment**         | Structured questionnaire covering skills, interests, and work preferences                             |
+| 🤖  | **Gemini AI Recommendations** | Google Gemini generates top career matches with a match score and detailed reasoning                  |
+| 🔍  | **Career Search & Filter**    | Full-text search across the career library, filterable by category                                    |
+| 📖  | **Career Detail Pages**       | Each career includes description, required skills, salary range, growth outlook, and work environment |
+| ⭐  | **Save Careers**              | Bookmark careers and revisit them from a dedicated saved careers page                                 |
+| 📊  | **Personalized Dashboard**    | Overview of profile, latest AI recommendations, and saved careers                                     |
+| 🕓  | **Assessment History**        | All past assessments and AI recommendations are stored and viewable                                   |
+| 📱  | **Responsive UI**             | Fully optimized across desktop, tablet, and mobile with Tailwind CSS v4                               |
 
 ---
 
@@ -78,6 +78,7 @@ Beyond the assessment, users can browse a curated career library, save careers t
 <td valign="top" width="33%">
 
 **Frontend**
+
 - React 19
 - TypeScript 7
 - React Router v7
@@ -91,6 +92,7 @@ Beyond the assessment, users can browse a curated career library, save careers t
 <td valign="top" width="33%">
 
 **Backend**
+
 - Node.js
 - Express 5
 - TypeScript
@@ -103,6 +105,7 @@ Beyond the assessment, users can browse a curated career library, save careers t
 <td valign="top" width="33%">
 
 **AI & Infrastructure**
+
 - Google Gemini AI (`@google/generative-ai`)
 - MongoDB (via MongoDB Atlas)
 - Bun (package manager & monorepo runner)
@@ -212,11 +215,11 @@ career-counselling/
 
 Ensure you have the following installed:
 
-| Tool | Version |
-|---|---|
-| [Bun](https://bun.sh/) | `>= 1.x` |
-| [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas) | or local MongoDB instance |
-| [Google AI Studio API Key](https://aistudio.google.com/app/apikey) | For Gemini AI features |
+| Tool                                                               | Version                   |
+| ------------------------------------------------------------------ | ------------------------- |
+| [Bun](https://bun.sh/)                                             | `>= 1.x`                  |
+| [MongoDB Atlas account](https://www.mongodb.com/cloud/atlas)       | or local MongoDB instance |
+| [Google AI Studio API Key](https://aistudio.google.com/app/apikey) | For Gemini AI features    |
 
 ### Installation
 
@@ -241,9 +244,9 @@ bun run dev:client
 
 > Run both commands in separate terminal windows.
 
-| Service | URL |
-|---|---|
-| Frontend | `http://localhost:5173` |
+| Service     | URL                     |
+| ----------- | ----------------------- |
+| Frontend    | `http://localhost:5173` |
 | Backend API | `http://localhost:3001` |
 
 ### Seeding the Database
@@ -251,7 +254,13 @@ bun run dev:client
 To populate the database with initial career data:
 
 ```bash
-bun run --cwd apps/server tsx src/seed.ts
+bun run seed
+```
+
+To populate the assessment questionnaire data:
+
+```bash
+bun run seed:assessment
 ```
 
 ---
@@ -287,31 +296,32 @@ All API routes are prefixed with `/api`. Protected routes require a `Bearer <tok
 
 ### Authentication — `/api/auth`
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| `POST` | `/api/auth/register` | Register a new user account | ❌ |
-| `POST` | `/api/auth/login` | Authenticate and receive a JWT | ❌ |
-| `POST` | `/api/auth/logout` | Invalidate the current session | ✅ |
+| Method | Endpoint             | Description                    | Auth |
+| ------ | -------------------- | ------------------------------ | ---- |
+| `POST` | `/api/auth/register` | Register a new user account    | ❌   |
+| `POST` | `/api/auth/login`    | Authenticate and receive a JWT | ❌   |
+| `POST` | `/api/auth/logout`   | Invalidate the current session | ✅   |
 
 ### Careers — `/api/careers`
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| `GET` | `/api/careers/search` | Full-text search across careers | ❌ |
-| `GET` | `/api/careers/categories` | List all available career categories | ❌ |
-| `GET` | `/api/careers/suggestions` | Get career suggestions (typeahead) | ❌ |
-| `GET` | `/api/careers/:id` | Get full details for a specific career | ❌ |
-| `GET` | `/api/careers/saved` | Get the authenticated user's saved careers | ✅ |
-| `POST` | `/api/careers/saved` | Save / bookmark a career | ✅ |
-| `DELETE` | `/api/careers/saved/:careerId` | Remove a saved career | ✅ |
+| Method   | Endpoint                       | Description                                | Auth |
+| -------- | ------------------------------ | ------------------------------------------ | ---- |
+| `GET`    | `/api/careers/search`          | Full-text search across careers            | ❌   |
+| `GET`    | `/api/careers/categories`      | List all available career categories       | ❌   |
+| `GET`    | `/api/careers/suggestions`     | Get career suggestions (typeahead)         | ❌   |
+| `GET`    | `/api/careers/:id`             | Get full details for a specific career     | ❌   |
+| `GET`    | `/api/careers/saved`           | Get the authenticated user's saved careers | ✅   |
+| `POST`   | `/api/careers/saved`           | Save / bookmark a career                   | ✅   |
+| `DELETE` | `/api/careers/saved/:careerId` | Remove a saved career                      | ✅   |
 
 ### Assessments — `/api/assessments`
 
-| Method | Endpoint | Description | Auth |
-|--------|----------|-------------|------|
-| `POST` | `/api/assessments/submit` | Submit assessment answers and receive Gemini AI career recommendations | ✅ |
+| Method | Endpoint                  | Description                                                            | Auth |
+| ------ | ------------------------- | ---------------------------------------------------------------------- | ---- |
+| `POST` | `/api/assessments/submit` | Submit assessment answers and receive Gemini AI career recommendations | ✅   |
 
 **Assessment Submission Body:**
+
 ```json
 {
   "answers": [
@@ -322,6 +332,7 @@ All API routes are prefixed with `/api`. Protected routes require a `Bearer <tok
 ```
 
 **Recommendation Response:**
+
 ```json
 {
   "recommendations": [
@@ -342,50 +353,55 @@ All API routes are prefixed with `/api`. Protected routes require a `Bearer <tok
 The application uses **MongoDB** with the following Mongoose collections:
 
 ### `users`
-| Field | Type | Notes |
-|---|---|---|
-| `fullName` | `String` | Required |
-| `email` | `String` | Required, unique, indexed |
-| `password` | `String` | Hashed with bcrypt |
-| `role` | `String` | `user` \| `admin` \| `student` (default: `user`) |
-| `createdAt` | `Date` | Auto-generated |
+
+| Field       | Type     | Notes                                            |
+| ----------- | -------- | ------------------------------------------------ |
+| `fullName`  | `String` | Required                                         |
+| `email`     | `String` | Required, unique, indexed                        |
+| `password`  | `String` | Hashed with bcrypt                               |
+| `role`      | `String` | `user` \| `admin` \| `student` (default: `user`) |
+| `createdAt` | `Date`   | Auto-generated                                   |
 
 ### `careers`
-| Field | Type | Notes |
-|---|---|---|
-| `title` | `String` | Full-text indexed |
-| `description` | `String` | Full-text indexed |
-| `category` | `String` | Enum: Technology, Healthcare, Engineering, Business, Arts & Design, Education, Science, Legal, Finance, Marketing |
-| `requiredSkills` | `[String]` | Array of skill tags |
-| `educationRequired` | `String` | Minimum qualification |
-| `averageSalary` | `String` | Salary range display string |
-| `growthOutlook` | `String` | `Declining` \| `Stable` \| `Growing` \| `Fast Growing` |
-| `workEnvironment` | `String` | `Remote` \| `Office` \| `Hybrid` \| `Field` \| `Lab` \| `Variable` |
-| `isActive` | `Boolean` | Soft-delete flag (default: `true`) |
+
+| Field               | Type       | Notes                                                                                                             |
+| ------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------- |
+| `title`             | `String`   | Full-text indexed                                                                                                 |
+| `description`       | `String`   | Full-text indexed                                                                                                 |
+| `category`          | `String`   | Enum: Technology, Healthcare, Engineering, Business, Arts & Design, Education, Science, Legal, Finance, Marketing |
+| `requiredSkills`    | `[String]` | Array of skill tags                                                                                               |
+| `educationRequired` | `String`   | Minimum qualification                                                                                             |
+| `averageSalary`     | `String`   | Salary range display string                                                                                       |
+| `growthOutlook`     | `String`   | `Declining` \| `Stable` \| `Growing` \| `Fast Growing`                                                            |
+| `workEnvironment`   | `String`   | `Remote` \| `Office` \| `Hybrid` \| `Field` \| `Lab` \| `Variable`                                                |
+| `isActive`          | `Boolean`  | Soft-delete flag (default: `true`)                                                                                |
 
 ### `studentprofiles`
-| Field | Type | Notes |
-|---|---|---|
-| `userId` | `ObjectId` | Ref: `User` |
-| `fullName` | `String` | Mirrored from user |
-| `educationLevel` | `String` | Required at profile creation |
-| `interests` | `[String]` | User-defined interest tags |
-| `skills` | `[String]` | User-defined skill tags |
+
+| Field            | Type       | Notes                        |
+| ---------------- | ---------- | ---------------------------- |
+| `userId`         | `ObjectId` | Ref: `User`                  |
+| `fullName`       | `String`   | Mirrored from user           |
+| `educationLevel` | `String`   | Required at profile creation |
+| `interests`      | `[String]` | User-defined interest tags   |
+| `skills`         | `[String]` | User-defined skill tags      |
 
 ### `assessmentsubmissions`
-| Field | Type | Notes |
-|---|---|---|
-| `studentId` | `ObjectId` | Ref: `User` |
-| `answers` | `[{ questionId, answer }]` | Raw question-answer pairs |
-| `recommendations` | `[String]` | AI-generated career recommendations |
-| `submittedAt` | `Date` | Timestamp (default: `Date.now`) |
+
+| Field             | Type                       | Notes                               |
+| ----------------- | -------------------------- | ----------------------------------- |
+| `studentId`       | `ObjectId`                 | Ref: `User`                         |
+| `answers`         | `[{ questionId, answer }]` | Raw question-answer pairs           |
+| `recommendations` | `[String]`                 | AI-generated career recommendations |
+| `submittedAt`     | `Date`                     | Timestamp (default: `Date.now`)     |
 
 ### `savedcareers`
-| Field | Type | Notes |
-|---|---|---|
-| `userId` | `ObjectId` | Ref: `User` |
-| `careerId` | `ObjectId` | Ref: `Career` |
-| `savedAt` | `Date` | Timestamp (default: `Date.now`) |
+
+| Field      | Type       | Notes                           |
+| ---------- | ---------- | ------------------------------- |
+| `userId`   | `ObjectId` | Ref: `User`                     |
+| `careerId` | `ObjectId` | Ref: `Career`                   |
+| `savedAt`  | `Date`     | Timestamp (default: `Date.now`) |
 
 > Compound unique index on `{ userId, careerId }` prevents duplicate saves.
 
@@ -393,17 +409,17 @@ The application uses **MongoDB** with the following Mongoose collections:
 
 ## User Roles & Permissions
 
-| Capability | User / Student | Admin |
-|---|:---:|:---:|
-| Register & login | ✅ | ✅ |
-| Take career assessment | ✅ | ✅ |
-| View AI recommendations | ✅ | ✅ |
-| Browse & search careers | ✅ | ✅ |
-| Save / unsave careers | ✅ | ✅ |
-| View personalized dashboard | ✅ | ✅ |
-| Edit own profile | ✅ | ✅ |
-| Create / update / delete careers | ❌ | ✅ |
-| View all registered users | ❌ | ✅ |
+| Capability                       | User / Student | Admin |
+| -------------------------------- | :------------: | :---: |
+| Register & login                 |       ✅       |  ✅   |
+| Take career assessment           |       ✅       |  ✅   |
+| View AI recommendations          |       ✅       |  ✅   |
+| Browse & search careers          |       ✅       |  ✅   |
+| Save / unsave careers            |       ✅       |  ✅   |
+| View personalized dashboard      |       ✅       |  ✅   |
+| Edit own profile                 |       ✅       |  ✅   |
+| Create / update / delete careers |       ❌       |  ✅   |
+| View all registered users        |       ❌       |  ✅   |
 
 ---
 
@@ -452,6 +468,7 @@ Contributions, issues, and feature requests are welcome.
 </details>
 
 **Coding Standards:**
+
 - **Formatting:** Prettier before every commit
 - **Linting:** ESLint must pass with zero errors (`bun run --cwd apps/client lint`)
 - **Naming:** `camelCase` for variables/functions · `PascalCase` for components/classes · `kebab-case` for file names

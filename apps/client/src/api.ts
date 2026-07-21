@@ -61,4 +61,14 @@ export async function fetchLatestRecommendations() {
   const response = await api.get<RecommendationsResponse>('/assessments/recommendations')
   return response.data
 }
+
+export async function fetchAssessmentStatus(): Promise<{
+  hasSubmitted: boolean
+  submittedAt: string | null
+  assessmentId: string | null
+}> {
+  const response = await api.get('/assessments/status')
+  return response.data
+}
+
 export default api

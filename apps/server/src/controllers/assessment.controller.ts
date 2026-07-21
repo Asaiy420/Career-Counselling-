@@ -6,6 +6,30 @@ import type { AuthenticatedRequest } from "../middleware/middleware";
 
 const TOP_N = 6;
 
+// GET /api/assessments/status  — has the logged-in student ever submitted?
+export const getAssessmentStatus = async (
+  req: AuthenticatedRequest,
+  res: Response
+) => {
+  try {
+    const latest = await AssessmentSubmission.findOne({
+      studentId: req.user!.userId,
+    })
+      .sort({ submittedAt: -1 })
+      .select("submittedAt assessmentId")
+      .lean();
+
+    return res.status(200).json({
+      hasSubmitted: Boolean(latest),
+      submittedAt: latest?.submittedAt ?? null,
+      assessmentId: latest?.assessmentId ?? null,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 export const getActiveAssessment = async (
   req: AuthenticatedRequest,
   res: Response

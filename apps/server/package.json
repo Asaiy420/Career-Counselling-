@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts"
+    "start": "tsx src/index.ts",
+    "seed": "tsx src/seed.ts",
+    "seed:assessment": "tsx src/seed-assessment.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
