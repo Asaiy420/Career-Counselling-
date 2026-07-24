@@ -81,7 +81,7 @@ export function SavedCareersPage({ entries, loading, error, onRemove, onToggleSa
                 <Link to={`/careers/${career._id}`} className="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
                   View details
                 </Link>
-                <button type="button" onClick={() => void onRemove(career._id)} className="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                <button type="button" onClick={() => void onRemove(career._id)} className="rounded-full border border-red-600 px-4 py-2 text-sm font-semibold text-red-700 hover:bg-red-100 cursor-pointer">
                   Remove
                 </button>
               </div>

@@ -9,10 +9,8 @@ type RecommendationCardProps = {
 function matchColor(percentage: number) {
   if (percentage >= 80)
     return 'bg-emerald-50 text-emerald-700 ring-emerald-600/20';
-  if (percentage >= 50) 
-    return 'bg-blue-50 text-blue-700 ring-blue-600/20';
-  if (percentage >= 25) 
-    return 'bg-amber-50 text-amber-700 ring-amber-600/20';
+  if (percentage >= 50) return 'bg-teal-50 text-teal-700 ring-teal-600/20';
+  if (percentage >= 25) return 'bg-amber-50 text-amber-700 ring-amber-600/20';
   return 'bg-slate-50 text-slate-600 ring-slate-500/20';
 }
 
@@ -24,14 +22,14 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
       <div className='w-full'>
         <div className='flex items-center justify-between gap-4'>
           <div className='flex items-center gap-4'>
-            <span className='flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-50 font-bold text-indigo-600 ring-1 ring-inset ring-indigo-500/20'>
+            <span className='flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-50 font-bold text-emerald-600 ring-1 ring-inset ring-emerald-500/20'>
               #{rank}
             </span>
             <div>
               <p className='text-xs font-medium uppercase tracking-wider text-slate-500'>
                 {career.category}
               </p>
-              <h3 className='mt-1 text-lg font-semibold tracking-tight text-slate-900 transition-colors group-hover:text-indigo-600'>
+              <h3 className='mt-1 text-lg font-semibold tracking-tight text-slate-900 transition-colors group-hover:text-emerald-600'>
                 {career.title}
               </h3>
             </div>
@@ -73,7 +71,7 @@ export function RecommendationCard({ result, rank }: RecommendationCardProps) {
         </div>
         <Link
           to={`/careers/${career._id}`}
-          className='inline-flex items-center justify-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900'
+          className='inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600'
         >
           View Details
         </Link>

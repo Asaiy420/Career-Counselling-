@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
               style={{
                 bottom: '20%',
                 right: '10%',
-                background: 'rgba(16, 185, 129, 0.15)',
+                background: 'rgba(22, 163, 74, 0.15)',
               }}
             ></div>
 
@@ -132,7 +132,7 @@ const Hero: React.FC = () => {
                     <path
                       d='M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831'
                       fill='none'
-                      stroke='rgba(255,255,255,0.08)'
+                      stroke='rgba(255,255,255,0.12)'
                       strokeWidth='3.5'
                     />
                     <path

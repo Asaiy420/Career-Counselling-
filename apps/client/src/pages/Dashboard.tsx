@@ -2,364 +2,357 @@ import { Link, Navigate, useLocation } from 'react-router-dom';
 import { DashboardSavedCareersWidget } from '../components/DashboardSavedCareersWidget';
 import { SaveCareerButton } from '../components/SaveCareerButton';
 import { useSavedCareers } from '../hooks/useSavedCareers';
-import type { Career } from '../types';
-import '../styles/dashboard.css';
+import { useRecommendations } from '../hooks/useRecommendations';
 
-type DashboardMetric = {
-  label: string;
-  value: string;
-  trend: string;
-  icon: string;
-};
-
-const recommendedCareers: Career[] = [
-  {
-    _id: 'career-ux',
-    title: 'UI/UX Designer',
-    description:
-      'Shape intuitive learning experiences for students and educators.',
-    category: 'Design',
-    requiredSkills: ['Figma', 'User research', 'Prototyping'],
-    educationRequired: 'Diploma / Degree',
-    averageSalary: '$58k - $92k',
-    growthOutlook: 'Strong',
-    workEnvironment: 'Hybrid',
-  },
-  {
-    _id: 'career-data',
-    title: 'Data Analyst',
-    description:
-      'Translate progress and performance data into actionable student insights.',
-    category: 'Analytics',
-    requiredSkills: ['SQL', 'Dashboards', 'Reporting'],
-    educationRequired: 'Degree',
-    averageSalary: '$62k - $105k',
-    growthOutlook: 'High',
-    workEnvironment: 'Remote',
-  },
-  {
-    _id: 'career-product',
-    title: 'Product Manager',
-    description:
-      'Guide career product strategy and student journey improvements.',
-    category: 'Product',
-    requiredSkills: ['Roadmapping', 'Prioritization', 'Communication'],
-    educationRequired: 'Degree / Experience',
-    averageSalary: '$78k - $128k',
-    growthOutlook: 'Very strong',
-    workEnvironment: 'Hybrid',
-  },
-];
-
-const metrics: DashboardMetric[] = [
-  { label: 'Saved Careers', value: '12', trend: '+3 this week', icon: '★' },
-  { label: 'Assessment Score', value: '84%', trend: '+8 pts', icon: '◌' },
-  { label: 'Skills Completed', value: '18', trend: '+4 modules', icon: '✓' },
-  { label: 'Mentor Sessions', value: '5', trend: '+1 booked', icon: '↗' },
-];
-
-function Dashboard() {
+export default function Dashboard() {
   const location = useLocation();
   const userName = location.state?.userName ?? 'there';
-  const { savedCareers, loading, isSaved, toggleSave } = useSavedCareers();
+  const {
+    savedCareers,
+    loading: loadingSaved,
+    isSaved,
+    toggleSave,
+  } = useSavedCareers();
+  const {
+    recommendations,
+    loading: loadingRecs,
+    hasTakenAssessment,
+    submittedAt,
+  } = useRecommendations();
 
   if (!location.state?.userName) {
     return <Navigate to='/register' replace />;
   }
 
-  return (
-    <main className='dashboard-page'>
-      <section className='dashboard-shell'>
-        <header className='dashboard-hero'>
-          <div className='dashboard-hero__copy'>
-            <p className='dashboard-kicker'>SkillHive Digital</p>
-            <h1>Welcome Back, {userName}</h1>
-            <p>Continue building your future today.</p>
-          </div>
+  // Derive dynamic metrics
+  const assessmentScoreStr = hasTakenAssessment ? '100%' : '0%';
+  const assessmentTrend = hasTakenAssessment ? 'Completed' : 'Pending';
 
-          <div className='dashboard-hero__actions' aria-label='Quick actions'>
-            <button
-              type='button'
-              className='dashboard-icon-button'
-              aria-label='Profile avatar'
-            >
+  const metrics = [
+    {
+      label: 'Saved Careers',
+      value: savedCareers.length.toString(),
+      trend: 'Shortlisted',
+      icon: '★',
+    },
+    {
+      label: 'Assessment Score',
+      value: assessmentScoreStr,
+      trend: assessmentTrend,
+      icon: '◌',
+    },
+    {
+      label: 'Skills Matched',
+      value: hasTakenAssessment ? '12' : '0',
+      trend: 'Based on profile',
+      icon: '✓',
+    },
+    {
+      label: 'Mentor Sessions',
+      value: '0',
+      trend: 'Not booked yet',
+      icon: '↗',
+    },
+  ];
+
+  // Dynamic recommendations: take top 3
+  const topRecommendations = recommendations.slice(0, 3).map(r => r.career);
+
+  return (
+    <main className='min-h-screen bg-slate-50 text-slate-600'>
+      <div className='mx-auto max-w-7xl px-4 py-8 md:px-8 lg:py-12'>
+        {/* Header / Hero */}
+        <header className='mb-10 flex flex-col justify-between gap-6 rounded-3xl bg-slate-900 p-8 text-white shadow-xl md:flex-row md:items-center md:p-10'>
+          <div>
+            <p className='text-sm font-semibold tracking-wide text-emerald-300 uppercase'>
+              SkillHive Digital
+            </p>
+            <h1 className='mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl'>
+              Welcome Back, {userName}
+            </h1>
+            <p className='mt-2 text-lg text-slate-300'>
+              Continue building your future today.
+            </p>
+          </div>
+          <div className='flex items-center gap-4'>
+            <button className='flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-lg font-bold text-emerald-300 ring-1 ring-inset ring-emerald-500/30 transition hover:bg-emerald-500/30'>
               {userName.slice(0, 1).toUpperCase()}
             </button>
-            <button
-              type='button'
-              className='dashboard-icon-button'
-              aria-label='Notifications'
-            >
+            <button className='flex h-12 w-12 items-center justify-center rounded-full bg-white/5 text-xl transition hover:bg-white/10 ring-1 ring-inset ring-white/10'>
               ⌁
             </button>
-            <button
-              type='button'
-              className='dashboard-icon-button'
-              aria-label='Settings'
-            >
+            <button className='flex h-12 w-12 items-center justify-center rounded-full bg-white/5 text-xl transition hover:bg-white/10 ring-1 ring-inset ring-white/10'>
               ⚙
             </button>
           </div>
         </header>
 
-        <section
-          className='dashboard-metrics'
-          aria-label='Dashboard statistics'
-        >
+        {/* Metrics Grid */}
+        <section className='mb-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4'>
           {metrics.map(metric => (
-            <article key={metric.label} className='dashboard-stat-card'>
-              <div className='dashboard-stat-card__icon' aria-hidden='true'>
-                {metric.icon}
+            <article
+              key={metric.label}
+              className='flex flex-col justify-between rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 transition hover:shadow-md'
+            >
+              <div className='flex items-center justify-between'>
+                <div className='flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-xl font-bold text-emerald-600 ring-1 ring-inset ring-emerald-500/20'>
+                  {metric.icon}
+                </div>
+                <span className='text-xs font-medium text-slate-500 bg-slate-50 px-2 py-1 rounded-md ring-1 ring-inset ring-slate-200'>
+                  {metric.trend}
+                </span>
               </div>
-              <div>
-                <p className='dashboard-stat-card__label'>{metric.label}</p>
-                <strong className='dashboard-stat-card__value'>
+              <div className='mt-6'>
+                <p className='text-sm font-medium text-slate-500'>
+                  {metric.label}
+                </p>
+                <p className='mt-1 text-3xl font-bold tracking-tight text-slate-900'>
                   {metric.value}
-                </strong>
+                </p>
               </div>
-              <span className='dashboard-stat-card__trend'>{metric.trend}</span>
             </article>
           ))}
         </section>
 
-        <section className='dashboard-grid' aria-label='Dashboard overview'>
-          <div className='dashboard-column dashboard-column--primary'>
-            <article className='dashboard-panel career-progress-card'>
-              <div className='dashboard-panel__header'>
+        {/* Main Grid */}
+        <div className='grid gap-8 lg:grid-cols-3'>
+          <div className='lg:col-span-2 space-y-8'>
+            {/* Progress Panel */}
+            <article className='rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 md:p-8'>
+              <div className='flex items-center justify-between'>
                 <div>
-                  <p className='dashboard-kicker'>Career progress</p>
-                  <h2>Career readiness</h2>
+                  <p className='text-xs font-semibold uppercase tracking-wider text-emerald-600'>
+                    Career Progress
+                  </p>
+                  <h2 className='mt-1 text-xl font-bold text-slate-900'>
+                    Career Readiness
+                  </h2>
                 </div>
-                <span className='dashboard-badge'>72% complete</span>
+                <span className='inline-flex items-center rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20'>
+                  {hasTakenAssessment ? '100% Complete' : '50% Complete'}
+                </span>
               </div>
-
-              <p className='dashboard-panel__body'>
-                Your profile is nearly ready. Finish assessments and skills
-                modules to unlock stronger recommendations.
+              <p className='mt-4 text-sm text-slate-600 leading-relaxed max-w-2xl'>
+                {hasTakenAssessment
+                  ? 'Your profile is fully ready! Explore your tailored recommendations below.'
+                  : 'Your profile is nearly ready. Finish the assessment to unlock stronger recommendations.'}
               </p>
-
-              <div className='dashboard-progress'>
-                <div className='dashboard-progress__track'>
+              <div className='mt-6'>
+                <div className='h-3 w-full overflow-hidden rounded-full bg-slate-100'>
                   <div
-                    className='dashboard-progress__fill'
-                    style={{ width: '72%' }}
+                    className={`h-full rounded-full bg-emerald-600 transition-all duration-1000 ${hasTakenAssessment ? 'w-full' : 'w-1/2'}`}
                   />
                 </div>
-                <div className='dashboard-progress__meta'>
+                <div className='mt-2 flex justify-between text-xs font-medium text-slate-500'>
                   <span>Profile readiness</span>
-                  <span>72%</span>
+                  <span>{hasTakenAssessment ? '100%' : '50%'}</span>
                 </div>
               </div>
             </article>
 
-            <article className='dashboard-panel'>
-              <div className='dashboard-panel__header'>
+            {/* Recommended Careers Panel */}
+            <article className='rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5 md:p-8'>
+              <div className='flex items-center justify-between mb-6'>
                 <div>
-                  <p className='dashboard-kicker'>Recommended careers</p>
-                  <h2>Matches for your journey</h2>
+                  <p className='text-xs font-semibold uppercase tracking-wider text-emerald-600'>
+                    Recommended Careers
+                  </p>
+                  <h2 className='mt-1 text-xl font-bold text-slate-900'>
+                    Matches for your journey
+                  </h2>
                 </div>
-                <Link to='/careers' className='dashboard-link'>
-                  Explore all
+                <Link
+                  to='/recommendations'
+                  className='text-sm font-semibold text-emerald-600 hover:text-emerald-500'
+                >
+                  Explore all &rarr;
                 </Link>
               </div>
 
-              <div className='dashboard-career-list'>
-                {recommendedCareers.map(career => (
-                  <article key={career._id} className='dashboard-career-card'>
-                    <div className='dashboard-career-card__top'>
-                      <div>
-                        <p className='dashboard-career-card__field'>
+              <div className='space-y-6'>
+                {loadingRecs ? (
+                  <div className='animate-pulse h-32 bg-slate-100 rounded-xl w-full' />
+                ) : topRecommendations.length > 0 ? (
+                  topRecommendations.map(career => (
+                    <div
+                      key={career._id}
+                      className='group flex flex-col gap-4 rounded-2xl border border-slate-100 p-5 transition hover:border-emerald-100 hover:bg-emerald-50/30 sm:flex-row sm:items-center sm:justify-between'
+                    >
+                      <div className='flex-1'>
+                        <p className='text-xs font-medium text-slate-500'>
                           {career.category}
                         </p>
-                        <h3>{career.title}</h3>
+                        <h3 className='text-lg font-bold text-slate-900 transition-colors group-hover:text-emerald-600'>
+                          {career.title}
+                        </h3>
+                        <p className='mt-1 text-sm text-slate-600 line-clamp-2'>
+                          {career.description}
+                        </p>
+                        <div className='mt-3 flex flex-wrap gap-2'>
+                          {career.requiredSkills.slice(0, 3).map(skill => (
+                            <span
+                              key={skill}
+                              className='inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10'
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <span className='dashboard-mini-pill'>
-                        {career.growthOutlook}
-                      </span>
+                      <div className='flex items-center gap-3 sm:flex-col sm:items-end'>
+                        <Link
+                          to={`/careers/${career._id}`}
+                          className='rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-500'
+                        >
+                          View path
+                        </Link>
+                        <SaveCareerButton
+                          career={career}
+                          isSaved={isSaved(career._id)}
+                          onToggle={toggleSave}
+                        />
+                      </div>
                     </div>
-
-                    <p className='dashboard-panel__body'>
-                      {career.description}
+                  ))
+                ) : (
+                  <div className='rounded-xl bg-slate-50 p-6 text-center ring-1 ring-inset ring-slate-900/5'>
+                    <p className='text-sm text-slate-500 mb-4'>
+                      Take the assessment to see your personalized
+                      recommendations.
                     </p>
-
-                    <div className='dashboard-tag-row'>
-                      {career.requiredSkills.slice(0, 3).map(skill => (
-                        <span key={skill} className='dashboard-tag'>
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className='dashboard-career-card__actions'>
-                      <Link
-                        to='/careers'
-                        className='dashboard-button dashboard-button--ghost'
-                      >
-                        View path
-                      </Link>
-                      <SaveCareerButton
-                        career={career}
-                        isSaved={isSaved(career._id)}
-                        onToggle={toggleSave}
-                      />
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </article>
-
-            <article className='dashboard-panel'>
-              <div className='dashboard-panel__header'>
-                <div>
-                  <p className='dashboard-kicker'>Upcoming tasks</p>
-                  <h2>Keep momentum going</h2>
-                </div>
-              </div>
-
-              <div className='dashboard-task-list'>
-                {[
-                  'Complete Assessment',
-                  'Explore Careers',
-                  'Book Mentor Session',
-                ].map((task, index) => (
-                  <div key={task} className='dashboard-task-item'>
-                    <div className='dashboard-task-item__marker'>
-                      0{index + 1}
-                    </div>
-                    <div>
-                      <h3>{task}</h3>
-                      <p>
-                        {index === 0
-                          ? 'Unlock a sharper career match score.'
-                          : index === 1
-                            ? 'Review paths aligned to your strengths.'
-                            : 'Get guidance from a mentor in your target field.'}
-                      </p>
-                    </div>
                     <Link
-                      to={
-                        index === 0
-                          ? '/assessment'
-                          : index === 2
-                            ? '/login'
-                            : '/careers'
-                      }
-                      className='dashboard-task-item__link'
+                      to='/assessment'
+                      className='inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500'
                     >
-                      Start
+                      Start Assessment
                     </Link>
                   </div>
-                ))}
+                )}
               </div>
             </article>
           </div>
 
-          <div className='dashboard-column dashboard-column--secondary'>
+          <div className='space-y-8'>
             <DashboardSavedCareersWidget
               savedCareers={savedCareers}
-              loading={loading}
+              loading={loadingSaved}
               onToggleSave={toggleSave}
               isSaved={isSaved}
             />
 
-            <article className='dashboard-panel'>
-              <div className='dashboard-panel__header'>
-                <div>
-                  <p className='dashboard-kicker'>Recent activity</p>
-                  <h2>Latest progress</h2>
+            {/* Tasks Panel */}
+            <article className='rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5'>
+              <div className='mb-6'>
+                <p className='text-xs font-semibold uppercase tracking-wider text-emerald-600'>
+                  Upcoming tasks
+                </p>
+                <h2 className='mt-1 text-lg font-bold text-slate-900'>
+                  Keep momentum going
+                </h2>
+              </div>
+              <div className='space-y-4'>
+                {!hasTakenAssessment && (
+                  <div className='flex items-start gap-4'>
+                    <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-500'>
+                      01
+                    </div>
+                    <div>
+                      <h3 className='text-sm font-semibold text-slate-900'>
+                        Complete Assessment
+                      </h3>
+                      <p className='mt-1 text-xs text-slate-500'>
+                        Unlock a sharper career match score.
+                      </p>
+                      <Link
+                        to='/assessment'
+                        className='mt-2 inline-block text-xs font-semibold text-emerald-600 hover:text-emerald-500'
+                      >
+                        Start &rarr;
+                      </Link>
+                    </div>
+                  </div>
+                )}
+                <div className='flex items-start gap-4'>
+                  <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-bold text-slate-500'>
+                    02
+                  </div>
+                  <div>
+                    <h3 className='text-sm font-semibold text-slate-900'>
+                      Explore Careers
+                    </h3>
+                    <p className='mt-1 text-xs text-slate-500'>
+                      Review paths aligned to your strengths.
+                    </p>
+                    <Link
+                      to='/careers'
+                      className='mt-2 inline-block text-xs font-semibold text-emerald-600 hover:text-emerald-500'
+                    >
+                      Browse &rarr;
+                    </Link>
+                  </div>
                 </div>
               </div>
+            </article>
 
-              <div className='dashboard-activity-list'>
+            {/* Recent Activity Panel */}
+            <article className='rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5'>
+              <div className='mb-6'>
+                <p className='text-xs font-semibold uppercase tracking-wider text-emerald-600'>
+                  Recent activity
+                </p>
+                <h2 className='mt-1 text-lg font-bold text-slate-900'>
+                  Latest progress
+                </h2>
+              </div>
+              <div className='space-y-6'>
                 {[
                   {
-                    title: 'Saved Career',
-                    note: 'UI/UX Designer added to your shortlist',
-                    time: '2h ago',
+                    title: 'Dashboard Updated',
+                    note: 'New dynamic layout loaded',
+                    time: 'Just now',
                   },
+                  hasTakenAssessment
+                    ? {
+                        title: 'Assessment Completed',
+                        note: 'Personality and interest assessment finished',
+                        time: submittedAt
+                          ? new Date(submittedAt).toLocaleDateString()
+                          : 'Recently',
+                      }
+                    : null,
                   {
-                    title: 'Assessment Completed',
-                    note: 'Personality and interest assessment finished',
-                    time: 'Yesterday',
+                    title: 'Profile Created',
+                    note: 'Welcome to SkillHive Digital',
+                    time: 'Recently',
                   },
-                  {
-                    title: 'Profile Updated',
-                    note: 'Education and goals updated successfully',
-                    time: '2 days ago',
-                  },
-                ].map(item => (
-                  <div key={item.title} className='dashboard-activity-item'>
-                    <div className='dashboard-activity-item__dot' />
-                    <div>
-                      <h3>{item.title}</h3>
-                      <p>{item.note}</p>
+                ]
+                  .filter(Boolean)
+                  .map((item, idx, arr) => (
+                    <div key={idx} className='relative flex gap-4'>
+                      {idx !== arr.length - 1 && (
+                        <div className='absolute left-3 top-6 h-full w-0.5 bg-slate-100' />
+                      )}
+                      <div className='relative mt-1 h-6 w-6 shrink-0 rounded-full bg-emerald-100 ring-4 ring-white flex items-center justify-center'>
+                        <div className='h-2 w-2 rounded-full bg-emerald-600' />
+                      </div>
+                      <div>
+                        <h3 className='text-sm font-semibold text-slate-900'>
+                          {item!.title}
+                        </h3>
+                        <p className='mt-0.5 text-xs text-slate-500'>
+                          {item!.note}
+                        </p>
+                        <span className='mt-1 block text-xs font-medium text-slate-400'>
+                          {item!.time}
+                        </span>
+                      </div>
                     </div>
-                    <span>{item.time}</span>
-                  </div>
-                ))}
-              </div>
-            </article>
-
-            <article className='dashboard-panel'>
-              <div className='dashboard-panel__header'>
-                <div>
-                  <p className='dashboard-kicker'>Career goals</p>
-                  <h2>Goal progress</h2>
-                </div>
-              </div>
-
-              <div className='dashboard-goal-card'>
-                <div className='dashboard-goal-card__progress'>
-                  <div className='dashboard-progress__track'>
-                    <div
-                      className='dashboard-progress__fill'
-                      style={{ width: '64%' }}
-                    />
-                  </div>
-                  <div className='dashboard-progress__meta'>
-                    <span>Target progress</span>
-                    <span>64%</span>
-                  </div>
-                </div>
-
-                <div className='dashboard-badge-row'>
-                  {[
-                    'Assessment Ready',
-                    'Top 5 Careers',
-                    'Mentor Connected',
-                  ].map(badge => (
-                    <span key={badge} className='dashboard-achievement-badge'>
-                      {badge}
-                    </span>
                   ))}
-                </div>
               </div>
             </article>
           </div>
-        </section>
-
-        <section className='dashboard-cta'>
-          <div>
-            <p className='dashboard-kicker dashboard-kicker--light'>
-              Next step
-            </p>
-            <h2>Ready to discover your ideal career?</h2>
-            <p>
-              Take the assessment to refine your matches and unlock more
-              personalized guidance.
-            </p>
-          </div>
-
-          <Link
-            to='/assessment'
-            className='dashboard-button dashboard-button--cta'
-          >
-            Take Career Assessment
-          </Link>
-        </section>
-      </section>
+        </div>
+      </div>
     </main>
   );
 }
-
-export default Dashboard;

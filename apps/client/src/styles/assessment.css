@@ -5,22 +5,22 @@
    ============================================================ */
 
 :root {
-  --asmnt-accent:        #7c3aed;
-  --asmnt-accent-light:  #a78bfa;
-  --asmnt-accent-glow:   rgba(124, 58, 237, 0.18);
-  --asmnt-green:         #10b981;
-  --asmnt-green-light:   rgba(16, 185, 129, 0.12);
-  --asmnt-surface:       #ffffff;
-  --asmnt-bg:            #f8f7ff;
-  --asmnt-border:        #e8e5f0;
-  --asmnt-text:          #1e1b3a;
-  --asmnt-muted:         #6b6585;
-  --asmnt-error:         #ef4444;
-  --asmnt-error-bg:      rgba(239, 68, 68, 0.08);
-  --asmnt-shadow-sm:     0 2px 12px rgba(124, 58, 237, 0.06);
-  --asmnt-shadow-md:     0 8px 32px rgba(124, 58, 237, 0.12);
-  --asmnt-shadow-lg:     0 20px 60px rgba(124, 58, 237, 0.18);
-  --asmnt-transition:    all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --asmnt-accent: #16a34a;
+  --asmnt-accent-light: #10b981;
+  --asmnt-accent-glow: rgba(22, 163, 74, 0.16);
+  --asmnt-green: #10b981;
+  --asmnt-green-light: rgba(16, 185, 129, 0.12);
+  --asmnt-surface: #ffffff;
+  --asmnt-bg: #f6fbf7;
+  --asmnt-border: #dbe9df;
+  --asmnt-text: #10261c;
+  --asmnt-muted: #5e7268;
+  --asmnt-error: #ef4444;
+  --asmnt-error-bg: rgba(239, 68, 68, 0.08);
+  --asmnt-shadow-sm: 0 2px 12px rgba(16, 185, 129, 0.06);
+  --asmnt-shadow-md: 0 8px 32px rgba(16, 185, 129, 0.12);
+  --asmnt-shadow-lg: 0 20px 60px rgba(16, 185, 129, 0.18);
+  --asmnt-transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ── Page Shell ─────────────────────────────────────────────── */
@@ -28,9 +28,17 @@
   min-height: 100vh;
   font-family: 'Poppins', system-ui, sans-serif;
   background:
-    radial-gradient(ellipse 80% 50% at 0% 0%,   rgba(124,58,237,0.07), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(16,185,129,0.06), transparent),
-    #f8f7ff;
+    radial-gradient(
+      ellipse 80% 50% at 0% 0%,
+      rgba(22, 163, 74, 0.08),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 100% 100%,
+      rgba(16, 185, 129, 0.06),
+      transparent
+    ),
+    #f6fbf7;
   padding: 0 0 80px;
   -webkit-font-smoothing: antialiased;
 }
@@ -40,7 +48,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(248, 247, 255, 0.85);
+  background: rgba(246, 251, 247, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--asmnt-border);
@@ -117,7 +125,11 @@
 
 .asmnt-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--asmnt-accent), var(--asmnt-accent-light));
+  background: linear-gradient(
+    90deg,
+    var(--asmnt-accent),
+    var(--asmnt-accent-light)
+  );
   border-radius: 9999px;
   transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -145,8 +157,14 @@
 }
 
 @keyframes asmntFadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0);    }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Hero intro ─────────────────────────────────────────────── */
@@ -161,7 +179,7 @@
   gap: 6px;
   background: var(--asmnt-accent-glow);
   color: var(--asmnt-accent);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  border: 1px solid rgba(22, 163, 74, 0.2);
   border-radius: 9999px;
   padding: 5px 14px;
   font-size: 12px;
@@ -219,8 +237,14 @@
 }
 
 @keyframes asmntSlideIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to   { opacity: 1; transform: translateX(0);    }
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .asmnt-question-num {
@@ -269,10 +293,10 @@
 .asmnt-option.selected {
   border-color: var(--asmnt-accent);
   background: var(--asmnt-accent-glow);
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.12);
 }
 
-.asmnt-option input[type="radio"] {
+.asmnt-option input[type='radio'] {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -376,14 +400,18 @@
 }
 
 .asmnt-btn--primary {
-  background: linear-gradient(135deg, var(--asmnt-accent), #9333ea);
+  background: linear-gradient(
+    135deg,
+    var(--asmnt-accent),
+    var(--asmnt-accent-light)
+  );
   color: #fff;
-  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
 }
 
 .asmnt-btn--primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(124, 58, 237, 0.4);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
 }
 
 .asmnt-btn--primary:active:not(:disabled) {
@@ -396,7 +424,7 @@
 }
 
 .asmnt-btn--submit {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, #10b981, #0f766e);
   color: #fff;
   flex: 1;
   justify-content: center;
@@ -466,14 +494,18 @@
 /* ── Loading skeleton ───────────────────────────────────────── */
 .asmnt-skeleton {
   border-radius: 24px;
-  background: linear-gradient(90deg, #f0eeff 25%, #e8e5f5 50%, #f0eeff 75%);
+  background: linear-gradient(90deg, #eefaf2 25%, #e1f3e7 50%, #eefaf2 75%);
   background-size: 200% 100%;
   animation: asmntShimmer 1.4s infinite;
 }
 
 @keyframes asmntShimmer {
-  0%   { background-position:  200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* ── Confirmation / Success screen ─────────────────────────── */
@@ -497,8 +529,14 @@
 }
 
 @keyframes asmntPop {
-  from { transform: scale(0.4); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .asmnt-confirm-icon svg {
@@ -593,10 +631,24 @@
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .asmnt-question-card { padding: 22px 18px; }
-  .asmnt-question-text { font-size: 16px; }
-  .asmnt-nav { flex-direction: column; }
-  .asmnt-btn { width: 100%; justify-content: center; }
-  .asmnt-topbar { padding: 10px 16px; }
-  .asmnt-container { padding: 0 16px; margin-top: 28px; }
+  .asmnt-question-card {
+    padding: 22px 18px;
+  }
+  .asmnt-question-text {
+    font-size: 16px;
+  }
+  .asmnt-nav {
+    flex-direction: column;
+  }
+  .asmnt-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .asmnt-topbar {
+    padding: 10px 16px;
+  }
+  .asmnt-container {
+    padding: 0 16px;
+    margin-top: 28px;
+  }
 }

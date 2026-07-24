@@ -18,8 +18,6 @@ interface Pagination {
   totalPages: number;
 }
 
-
-
 export default function CareerSearch() {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
@@ -39,12 +37,17 @@ export default function CareerSearch() {
   useEffect(() => {
     axios
       .get<{ categories: string[] }>(`${API}/careers/categories`)
-      .then((res) => setCategories(res.data.categories))
+      .then(res => setCategories(res.data.categories))
       .catch(() => {});
   }, []);
 
   const fetchCareers = useCallback(
-    async (searchPage: number, searchQuery: string, searchCategory: string, searchSort: string) => {
+    async (
+      searchPage: number,
+      searchQuery: string,
+      searchCategory: string,
+      searchSort: string
+    ) => {
       setLoading(true);
       try {
         const params: Record<string, string | number> = {
@@ -63,10 +66,10 @@ export default function CareerSearch() {
         };
         params.sort = sortMap[searchSort] || 'name_asc';
 
-        const res = await axios.get<{ careers: Career[]; pagination: Pagination }>(
-          `${API}/careers/search`,
-          { params }
-        );
+        const res = await axios.get<{
+          careers: Career[];
+          pagination: Pagination;
+        }>(`${API}/careers/search`, { params });
         setCareers(res.data.careers);
         setPagination(res.data.pagination);
       } catch {
@@ -131,8 +134,8 @@ export default function CareerSearch() {
 
   const growthBadge = (outlook: string) => {
     const colors: Record<string, string> = {
-      'Fast Growing': 'bg-green-100 text-green-700',
-      Growing: 'bg-blue-100 text-blue-700',
+      'Fast Growing': 'bg-emerald-100 text-emerald-700',
+      Growing: 'bg-teal-100 text-teal-700',
       Stable: 'bg-gray-100 text-gray-600',
       Declining: 'bg-red-100 text-red-700',
     };
@@ -140,38 +143,40 @@ export default function CareerSearch() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-semibold text-[var(--text-h)] mb-1">
+    <div className='min-h-screen bg-[var(--bg)]'>
+      <div className='max-w-5xl mx-auto px-4 py-8'>
+        <h1 className='text-3xl font-semibold text-[var(--text-h)] mb-1'>
           Explore Careers
         </h1>
-        <p className="text-[var(--text)] mb-6">
+        <p className='text-[var(--text)] mb-6'>
           Search, filter, and discover career paths that match your interests
         </p>
 
-        <div ref={searchRef} className="relative mb-4">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="relative flex-1">
+        <div ref={searchRef} className='relative mb-4'>
+          <div className='flex flex-col sm:flex-row gap-3'>
+            <div className='relative flex-1'>
               <input
-                type="text"
-                placeholder="Search careers..."
+                type='text'
+                placeholder='Search careers...'
                 value={query}
-                onChange={(e) => handleQueryChange(e.target.value)}
-                className="w-full px-4 py-2.5 border border-[var(--border)] rounded-lg bg-[var(--bg)] text-[var(--text-h)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent"
+                onChange={e => handleQueryChange(e.target.value)}
+                className='w-full px-4 py-2.5 border border-[var(--border)] rounded-lg bg-[var(--bg)] text-[var(--text-h)] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent'
                 onFocus={() => {
                   if (suggestions.length > 0) setShowSuggestions(true);
                 }}
               />
               {showSuggestions && suggestions.length > 0 && (
-                <ul className="absolute z-10 top-full left-0 right-0 mt-1 bg-[var(--bg)] border border-[var(--border)] rounded-lg shadow-lg overflow-hidden">
-                  {suggestions.map((s) => (
+                <ul className='absolute z-10 top-full left-0 right-0 mt-1 bg-[var(--bg)] border border-[var(--border)] rounded-lg shadow-lg overflow-hidden'>
+                  {suggestions.map(s => (
                     <li
                       key={s._id}
                       onClick={() => selectSuggestion(s)}
-                      className="px-4 py-2.5 cursor-pointer hover:bg-[var(--accent-bg)] text-[var(--text-h)] flex justify-between items-center"
+                      className='px-4 py-2.5 cursor-pointer hover:bg-[var(--accent-bg)] text-[var(--text-h)] flex justify-between items-center'
                     >
                       <span>{s.title}</span>
-                      <span className="text-xs text-[var(--text)]">{s.category}</span>
+                      <span className='text-xs text-[var(--text)]'>
+                        {s.category}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -180,14 +185,14 @@ export default function CareerSearch() {
 
             <select
               value={category}
-              onChange={(e) => {
+              onChange={e => {
                 setCategory(e.target.value);
                 setPage(1);
               }}
-              className="px-4 py-2.5 border border-[var(--border)] rounded-lg bg-[var(--bg)] text-[var(--text-h)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] appearance-none cursor-pointer min-w-[160px]"
+              className='px-4 py-2.5 border border-[var(--border)] rounded-lg bg-[var(--bg)] text-[var(--text-h)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] appearance-none cursor-pointer min-w-[160px]'
             >
-              <option value="">All Categories</option>
-              {categories.map((c) => (
+              <option value=''>All Categories</option>
+              {categories.map(c => (
                 <option key={c} value={c}>
                   {c}
                 </option>
@@ -196,36 +201,39 @@ export default function CareerSearch() {
 
             <select
               value={sort}
-              onChange={(e) => {
+              onChange={e => {
                 setSort(e.target.value);
                 setPage(1);
               }}
-              className="px-4 py-2.5 border border-[var(--border)] rounded-lg bg-[var(--bg)] text-[var(--text-h)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] appearance-none cursor-pointer min-w-[150px]"
+              className='px-4 py-2.5 border border-[var(--border)] rounded-lg bg-[var(--bg)] text-[var(--text-h)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)] appearance-none cursor-pointer min-w-[150px]'
             >
-              <option value="name_asc">Name A-Z</option>
-              <option value="name_desc">Name Z-A</option>
-              <option value="salary_high">Salary: High to Low</option>
-              <option value="salary_low">Salary: Low to High</option>
-              <option value="relevance">Relevance</option>
+              <option value='name_asc'>Name A-Z</option>
+              <option value='name_desc'>Name Z-A</option>
+              <option value='salary_high'>Salary: High to Low</option>
+              <option value='salary_low'>Salary: Low to High</option>
+              <option value='relevance'>Relevance</option>
             </select>
           </div>
         </div>
 
         {statusMessage && (
-          <div className="mb-4 flex items-center justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700">
+          <div className='mb-4 flex items-center justify-between gap-3 rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm text-emerald-700'>
             <span>{statusMessage}</span>
-            <button onClick={clearStatus} className="font-semibold hover:opacity-70">
+            <button
+              onClick={clearStatus}
+              className='font-semibold hover:opacity-70'
+            >
               &times;
             </button>
           </div>
         )}
 
         {category && (
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-sm text-[var(--text)]">Active filter:</span>
-            <span className="inline-flex items-center gap-1 px-3 py-1 bg-[var(--accent-bg)] text-[var(--accent)] rounded-full text-sm">
+          <div className='flex items-center gap-2 mb-4'>
+            <span className='text-sm text-[var(--text)]'>Active filter:</span>
+            <span className='inline-flex items-center gap-1 px-3 py-1 bg-[var(--accent-bg)] text-[var(--accent)] rounded-full text-sm'>
               {category}
-              <button onClick={clearCategory} className="hover:opacity-70 ml-1">
+              <button onClick={clearCategory} className='hover:opacity-70 ml-1'>
                 &times;
               </button>
             </span>
@@ -233,27 +241,30 @@ export default function CareerSearch() {
         )}
 
         {loading ? (
-          <div className="text-center py-20 text-[var(--text)]">Searching careers...</div>
+          <div className='text-center py-20 text-[var(--text)]'>
+            Searching careers...
+          </div>
         ) : careers.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-[var(--text)] text-lg mb-2">No careers found</p>
-            <p className="text-sm text-[var(--text)]">
+          <div className='text-center py-20'>
+            <p className='text-[var(--text)] text-lg mb-2'>No careers found</p>
+            <p className='text-sm text-[var(--text)]'>
               Try adjusting your search or filter
             </p>
           </div>
         ) : (
           <>
-            <p className="text-sm text-[var(--text)] mb-4">
-              {pagination?.total} career{pagination?.total !== 1 ? 's' : ''} found
+            <p className='text-sm text-[var(--text)] mb-4'>
+              {pagination?.total} career{pagination?.total !== 1 ? 's' : ''}{' '}
+              found
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {careers.map((career) => (
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+              {careers.map(career => (
                 <div
                   key={career._id}
-                  className="border border-[var(--border)] rounded-xl p-5 hover:shadow-md transition-shadow bg-[var(--bg)] flex flex-col"
+                  className='border border-[var(--border)] rounded-xl p-5 hover:shadow-md transition-shadow bg-[var(--bg)] flex flex-col'
                 >
-                  <div className="flex items-start justify-between mb-2 gap-2">
-                    <h3 className="text-lg font-medium text-[var(--text-h)]">
+                  <div className='flex items-start justify-between mb-2 gap-2'>
+                    <h3 className='text-lg font-medium text-[var(--text-h)]'>
                       {career.title}
                     </h3>
                     <span
@@ -263,8 +274,8 @@ export default function CareerSearch() {
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] self-start">
+                  <div className='flex items-center justify-between gap-2 mb-3'>
+                    <span className='text-xs px-2 py-0.5 rounded-full bg-[var(--accent-bg)] text-[var(--accent)] self-start'>
                       {career.category}
                     </span>
                     <SaveCareerButton
@@ -274,42 +285,42 @@ export default function CareerSearch() {
                     />
                   </div>
 
-                  <p className="text-sm text-[var(--text)] mb-3 line-clamp-2">
+                  <p className='text-sm text-[var(--text)] mb-3 line-clamp-2'>
                     {career.description}
                   </p>
 
-                  <div className="mt-auto space-y-1.5 text-xs text-[var(--text)]">
-                    <div className="flex justify-between">
+                  <div className='mt-auto space-y-1.5 text-xs text-[var(--text)]'>
+                    <div className='flex justify-between'>
                       <span>Salary</span>
-                      <span className="font-medium text-[var(--text-h)]">
+                      <span className='font-medium text-[var(--text-h)]'>
                         {career.averageSalary}
                       </span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className='flex justify-between'>
                       <span>Education</span>
-                      <span className="font-medium text-[var(--text-h)] truncate ml-2">
+                      <span className='font-medium text-[var(--text-h)] truncate ml-2'>
                         {career.educationRequired}
                       </span>
                     </div>
-                    <div className="flex justify-between">
+                    <div className='flex justify-between'>
                       <span>Work</span>
-                      <span className="font-medium text-[var(--text-h)]">
+                      <span className='font-medium text-[var(--text-h)]'>
                         {career.workEnvironment}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {career.requiredSkills.slice(0, 4).map((skill) => (
+                  <div className='flex flex-wrap gap-1.5 mt-3'>
+                    {career.requiredSkills.slice(0, 4).map(skill => (
                       <span
                         key={skill}
-                        className="text-xs px-2 py-0.5 rounded-full border border-[var(--border)] text-[var(--text)]"
+                        className='text-xs px-2 py-0.5 rounded-full border border-[var(--border)] text-[var(--text)]'
                       >
                         {skill}
                       </span>
                     ))}
                     {career.requiredSkills.length > 4 && (
-                      <span className="text-xs px-2 py-0.5 text-[var(--text)]">
+                      <span className='text-xs px-2 py-0.5 text-[var(--text)]'>
                         +{career.requiredSkills.length - 4}
                       </span>
                     )}
@@ -319,21 +330,23 @@ export default function CareerSearch() {
             </div>
 
             {pagination && pagination.totalPages > 1 && (
-              <div className="flex justify-center items-center gap-2 mt-8">
+              <div className='flex justify-center items-center gap-2 mt-8'>
                 <button
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
                   disabled={page === 1}
-                  className="px-4 py-2 border border-[var(--border)] rounded-lg text-sm text-[var(--text-h)] disabled:opacity-40 hover:bg-[var(--accent-bg)] transition-colors"
+                  className='px-4 py-2 border border-[var(--border)] rounded-lg text-sm text-[var(--text-h)] disabled:opacity-40 hover:bg-[var(--accent-bg)] transition-colors'
                 >
                   Previous
                 </button>
-                <span className="text-sm text-[var(--text)]">
+                <span className='text-sm text-[var(--text)]'>
                   Page {pagination.page} of {pagination.totalPages}
                 </span>
                 <button
-                  onClick={() => setPage((p) => Math.min(pagination.totalPages, p + 1))}
+                  onClick={() =>
+                    setPage(p => Math.min(pagination.totalPages, p + 1))
+                  }
                   disabled={page === pagination.totalPages}
-                  className="px-4 py-2 border border-[var(--border)] rounded-lg text-sm text-[var(--text-h)] disabled:opacity-40 hover:bg-[var(--accent-bg)] transition-colors"
+                  className='px-4 py-2 border border-[var(--border)] rounded-lg text-sm text-[var(--text-h)] disabled:opacity-40 hover:bg-[var(--accent-bg)] transition-colors'
                 >
                   Next
                 </button>
